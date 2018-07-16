@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "307892328614-sdj72bmi5usgi1hhhdorfoimelp0i6nc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.funrisestudio.avengers",
+            "certificate_hash": "5cc02a102b71c4ba987e1d189db9541cb9509036"
+          }
+        },
+        {
           "client_id": "307892328614-ljpivpovsmkcjk61fdk8epciate2fpv5.apps.googleusercontent.com",
           "client_type": 3
         }
