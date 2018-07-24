@@ -4,7 +4,7 @@ import com.funrisestudio.avengers.domain.entity.Avenger
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.FirebaseFirestore
 
-open class Firestore (private val db: FirebaseFirestore) {
+class Firestore (private val db: FirebaseFirestore) {
 
     companion object {
         private const val PATH_AVENGERS = "avengers"

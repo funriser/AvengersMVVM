@@ -8,8 +8,9 @@ import com.funrisestudio.avengers.domain.entity.Avenger
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import java.util.concurrent.ExecutionException
+import javax.inject.Inject
 
-class AvengersRepositoryImpl (private val firestore: Firestore): AvengersRepository {
+class AvengersRepositoryImpl @Inject constructor (private val firestore: Firestore): AvengersRepository {
 
     override fun avengers(): Either<Failure, List<Avenger>> =
             firebaseRequest(firestore.getAvengers()) { it }
