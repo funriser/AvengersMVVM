@@ -3,7 +3,9 @@ package com.funrisestudio.avengers.core.di.viewmodel
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
+import com.funrisestudio.avengers.core.di.SampleViewModel
 import dagger.Binds
+import dagger.MapKey
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -16,7 +18,7 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AvengersViewModel::class)
-    abstract fun bindAvengersViewModel (avengersViewModel: AvengersViewModel): ViewModel
+    @ViewModelKey (AvengersViewModel::class)
+    abstract fun avengersViewModel (avengersViewModel: AvengersViewModel): ViewModel
 
 }

@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 class AvengersViewModel @Inject constructor (private val getAvengers: GetAvengers): ViewModel () {
 
-    private val avengers = MutableLiveData<List<Avenger>> ()
+    val avengers = MutableLiveData<List<Avenger>> ()
 
-    private val failure = MutableLiveData<Failure> ()
+    val failure = MutableLiveData<Failure> ()
 
     fun getAvengers () = getAvengers.invoke(UseCase.None()) {
         it.either(this::onGetAvengersError, this::onGetAvengersSuccess)

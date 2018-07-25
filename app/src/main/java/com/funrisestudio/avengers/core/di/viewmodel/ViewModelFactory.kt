@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory @Inject constructor(private val creators: Map<Class<out ViewModel>,
+class ViewModelFactory @Inject constructor(private val creators: MutableMap<Class<out ViewModel>,
         @JvmSuppressWildcards Provider<ViewModel>>)
     : ViewModelProvider.Factory {
 

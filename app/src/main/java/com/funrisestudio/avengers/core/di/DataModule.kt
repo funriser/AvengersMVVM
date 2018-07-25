@@ -13,10 +13,10 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun avengersRepository (avengersRepositoryImpl: AvengersRepositoryImpl): AvengersRepository = avengersRepositoryImpl
+    fun firestoreDB (): Firestore = Firestore(FirebaseFirestore.getInstance())
 
     @Provides
     @Singleton
-    fun firestoreDB (): Firestore = Firestore(FirebaseFirestore.getInstance())
+    fun avengersRepository (avengersRepositoryImpl: AvengersRepositoryImpl): AvengersRepository = avengersRepositoryImpl
 
 }
