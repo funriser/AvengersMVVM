@@ -1,3 +1,7 @@
 package com.funrisestudio.avengers.domain.entity
 
-data class Avenger (val name: String, val age: Int, val alias: String)
+data class Avenger (var name: String, var age: Int, var alias: String) {
+
+    constructor(): this ("", 0, "")
+
+}

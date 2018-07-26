@@ -12,4 +12,4 @@ fun Context.toast (message: String = "Hello", length: Int = Toast.LENGTH_SHORT) 
 }
 
 fun ViewGroup.inflate (@LayoutRes layoutId: Int, root: ViewGroup = this, attachToRoot: Boolean = false): View
-        = LayoutInflater.from(this.context).inflate(layoutId, root, attachToRoot)
+        = LayoutInflater.from(context).inflate(layoutId, root, attachToRoot)

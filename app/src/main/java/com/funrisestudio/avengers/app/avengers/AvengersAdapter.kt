@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 
 class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
 
-    var collection: List<Avenger> by Delegates.observable(emptyList()) {
+    internal var collection: List<Avenger> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()
     }
 

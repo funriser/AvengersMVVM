@@ -55,13 +55,13 @@ class AvengersFragment : Fragment() {
     }
 
     private fun renderAvengers (list: List<Avenger>?) {
-        progressBar.visibility = View.GONE
         avengersAdapter.collection = list.orEmpty()
+        progressBar.visibility = View.GONE
     }
 
     private fun handleFailure (failure: Failure?) {
         progressBar.visibility = View.GONE
-        context?.toast("Error")
+        context?.toast(failure.toString())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

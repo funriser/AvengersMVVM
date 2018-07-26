@@ -9,6 +9,6 @@ import javax.inject.Inject
 
 class GetAvengers @Inject constructor (private val avengersRepository: AvengersRepository): UseCase<List<Avenger>, UseCase.None> () {
 
-    override suspend fun run(params: None): Either<Failure, List<Avenger>> = avengersRepository.avengers()
+    override fun run(params: None): Either<Failure, List<Avenger>> = avengersRepository.avengers()
 
 }
