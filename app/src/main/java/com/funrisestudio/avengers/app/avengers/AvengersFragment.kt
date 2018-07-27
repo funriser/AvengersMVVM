@@ -1,15 +1,12 @@
 package com.funrisestudio.avengers.app.avengers
 
-import android.arch.lifecycle.ViewModel
-import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.funrisestudio.avengers.App
 import com.funrisestudio.avengers.R
+import com.funrisestudio.avengers.core.base.BaseFragment
 import com.funrisestudio.avengers.core.di.viewmodel.ViewModelFactory
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.core.extensions.failure
@@ -20,12 +17,14 @@ import com.funrisestudio.avengers.domain.entity.Avenger
 import kotlinx.android.synthetic.main.fragment_avengers.*
 import javax.inject.Inject
 
-class AvengersFragment : Fragment() {
+class AvengersFragment : BaseFragment () {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var avengersAdapter: AvengersAdapter
 
     private lateinit var viewModel: AvengersViewModel
+
+    override val layoutId = R.layout.fragment_avengers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class AvengersFragment : Fragment() {
     }
 
     private fun loadAvengers () {
-        progressBar.visibility = View.VISIBLE
+        showProgress()
         viewModel.getAvengers()
     }
 
@@ -56,17 +55,12 @@ class AvengersFragment : Fragment() {
 
     private fun renderAvengers (list: List<Avenger>?) {
         avengersAdapter.collection = list.orEmpty()
-        progressBar.visibility = View.GONE
+        hideProgress()
     }
 
     private fun handleFailure (failure: Failure?) {
-        progressBar.visibility = View.GONE
+        hideProgress()
         context?.toast(failure.toString())
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_avengers, container, false)
     }
 
 }

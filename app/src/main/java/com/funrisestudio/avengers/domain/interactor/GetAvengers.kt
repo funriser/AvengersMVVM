@@ -5,9 +5,11 @@ import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
+import java.util.concurrent.Executor
 import javax.inject.Inject
 
-class GetAvengers @Inject constructor (private val avengersRepository: AvengersRepository): UseCase<List<Avenger>, UseCase.None> () {
+class GetAvengers @Inject constructor (private val avengersRepository: AvengersRepository, executor: Executor)
+    : UseCase<List<Avenger>, UseCase.None> (executor) {
 
     override fun run(params: None): Either<Failure, List<Avenger>> = avengersRepository.avengers()
 
