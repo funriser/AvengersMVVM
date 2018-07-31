@@ -3,6 +3,7 @@ package com.funrisestudio.avengers.app.avengers
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import com.funrisestudio.avengers.App
 import com.funrisestudio.avengers.R
@@ -15,6 +16,7 @@ import com.funrisestudio.avengers.core.extensions.toast
 import com.funrisestudio.avengers.core.extensions.viewModel
 import com.funrisestudio.avengers.domain.entity.Avenger
 import kotlinx.android.synthetic.main.fragment_avengers.*
+import kotlinx.android.synthetic.main.item_card_avenger.*
 import javax.inject.Inject
 
 class AvengersFragment : BaseFragment () {
@@ -34,6 +36,7 @@ class AvengersFragment : BaseFragment () {
             observe(avengers, ::renderAvengers)
             failure(failure, ::handleFailure)
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,11 +1,14 @@
 package com.funrisestudio.avengers.app.avengers
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.core.extensions.inflate
+import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import com.funrisestudio.avengers.domain.entity.Avenger
+import kotlinx.android.synthetic.main.item_card_avenger.*
 import kotlinx.android.synthetic.main.item_card_avenger.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -31,6 +34,7 @@ class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapte
         fun bind (avengerItem: Avenger, itemClick: (Avenger) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name
             itemView.tvAvengerAlias.text = avengerItem.alias
+            itemView.ivAvenger.loadFromUrl(avengerItem.image)
             itemView.layoutAvenger.setOnClickListener { itemClick.invoke(avengerItem) }
         }
 
