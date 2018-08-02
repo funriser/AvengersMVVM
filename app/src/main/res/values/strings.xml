@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Avengers</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_avenger_detail">AvengerDetailActivity</string>
+    <string name="detail_alias">Alias</string>
+    <string name="detail_age">Age</string>
+    <string name="detail_dob">DoB</string>
+    <string name="detail_story">Story</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum ornare mollis. Integer quis ipsum nec magna blandit viverra commodo eget ex. Maecenas luctus risus sit amet euismod vehicula. Phasellus arcu neque, sagittis ut tempus eu, placerat sit amet ipsum. Nulla leo magna, semper a fermentum sit amet, ornare in purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc porta ornare ligula, vel porta sapien porta vestibulum. Donec maximus velit non erat hendrerit elementum. Pellentesque sit amet luctus metus, id tristique odio.</string>
 </resources>

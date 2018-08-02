@@ -5,8 +5,17 @@
     <dimen name="marginS">5dp</dimen>
     <dimen name="marginM">10dp</dimen>
     <dimen name="marginL">15dp</dimen>
+    <dimen name="marginXL">30dp</dimen>
+
+    <dimen name="marginDecor">8dp</dimen>
+
+    <dimen name="marginCollapsingBottom">94dp</dimen>
 
     <dimen name="textM">14sp</dimen>
     <dimen name="textL">16sp</dimen>
+    <dimen name="textXL">20sp</dimen>
+    <dimen name="textXXL">30sp</dimen>
+
+    <dimen name="cardCornerRadius">3dp</dimen>
 
 </resources>
