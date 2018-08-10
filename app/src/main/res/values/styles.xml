@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -61,6 +63,10 @@
 
     <style name="TextHeader" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/textXXL</item>
+    </style>
+
+    <style name="TransitionImage">
+        <item name="android:transitionName">@string/imageTransition</item>
     </style>
 
     <style name="MaterialElevation"/>

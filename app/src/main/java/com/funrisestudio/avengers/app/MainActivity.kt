@@ -2,6 +2,7 @@ package com.funrisestudio.avengers.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
@@ -11,6 +12,7 @@ import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.avengerDetail.AvengerDetailActivity
 import com.funrisestudio.avengers.app.avengers.AvengersAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.base.BaseActivity
 import com.funrisestudio.avengers.core.di.viewmodel.ViewModelFactory
 import com.funrisestudio.avengers.core.exception.Failure
@@ -54,12 +56,16 @@ class MainActivity : BaseActivity() {
         rvAvengers.layoutManager = GridLayoutManager (this, 2)
         rvAvengers.itemAnimator = DefaultItemAnimator ()
         rvAvengers.adapter = avengersAdapter
-        avengersAdapter.clickListener = {
-            startActivity(Intent(this, AvengerDetailActivity::class.java))
+        avengersAdapter.clickListener = { avInfo, transitionView ->
+            val intent = Intent(this, AvengerDetailActivity::class.java)
+            intent.putExtra(AvengerDetailActivity.AVENGER_DETAIL, avInfo)
+            val options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(this, transitionView, transitionView.transitionName)
+            startActivity(intent, options.toBundle())
         }
     }
 
-    private fun renderAvengers (list: List<Avenger>?) {
+    private fun renderAvengers (list: List<AvengerView>?) {
         avengersAdapter.collection = list.orEmpty()
         hideProgress()
     }

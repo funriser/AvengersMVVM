@@ -5,21 +5,21 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.funrisestudio.avengers.R
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.extensions.inflate
 import com.funrisestudio.avengers.core.extensions.loadFromUrl
-import com.funrisestudio.avengers.domain.entity.Avenger
-import kotlinx.android.synthetic.main.item_card_avenger.*
+import com.funrisestudio.avengers.core.extensions.toDp
 import kotlinx.android.synthetic.main.item_card_avenger.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
 
-    internal var collection: List<Avenger> by Delegates.observable(emptyList()) {
+    internal var collection: List<AvengerView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()
     }
 
-    var clickListener: (Avenger) -> Unit = { _ -> }
+    var clickListener: (AvengerView, View) -> Unit = { _,_ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(parent.inflate(R.layout.item_card_avenger))
@@ -31,11 +31,11 @@ class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapte
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun bind (avengerItem: Avenger, itemClick: (Avenger) -> Unit) {
+        fun bind (avengerItem: AvengerView, itemClick: (AvengerView, View) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name
             itemView.tvAvengerAlias.text = avengerItem.alias
             itemView.ivAvenger.loadFromUrl(avengerItem.image)
-            itemView.layoutAvenger.setOnClickListener { itemClick.invoke(avengerItem) }
+            itemView.layoutAvenger.setOnClickListener { itemClick.invoke(avengerItem, itemView.ivAvenger) }
         }
 
     }

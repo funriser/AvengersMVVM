@@ -2,6 +2,7 @@ package com.funrisestudio.avengers.app.avengers
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
@@ -10,7 +11,7 @@ import javax.inject.Inject
 
 class AvengersViewModel @Inject constructor (private val getAvengers: GetAvengers): ViewModel () {
 
-    val avengers = MutableLiveData<List<Avenger>> ()
+    val avengers = MutableLiveData<List<AvengerView>> ()
 
     val failure = MutableLiveData<Failure> ()
 
@@ -19,7 +20,7 @@ class AvengersViewModel @Inject constructor (private val getAvengers: GetAvenger
     }
 
     private fun onGetAvengersSuccess (avengersList: List<Avenger>) {
-        avengers.value = avengersList
+        avengers.value = avengersList.map { AvengerView(it) }
     }
 
     private fun onGetAvengersError (failure: Failure) {

@@ -1,7 +1,9 @@
 package com.funrisestudio.avengers.domain.entity
 
-data class Avenger (var name: String, var age: Int, var alias: String, var image: String) {
+import java.util.*
 
-    constructor(): this ("", 0, "", "")
+data class Avenger (var id: String, var name: String, var age: Int, var alias: String, var image: String, var dob: Date, var story: String) {
+
+    constructor(): this ("", "", 0, "", "", Date(), "")
 
 }

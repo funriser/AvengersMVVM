@@ -5,5 +5,33 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="colorBlackTransparent">#33000000</color>
+
+    <!--
+
+    Transparency
+
+     0% — FF
+     5% — F2
+     10% — E6
+     15% — D9
+     20% — CC
+     25% — BF
+     30% — B3
+     35% — A6
+     40% — 99
+     45% — 8C
+     50% — 80
+     55% — 73
+     60% — 66
+     65% — 59
+     70% — 4D
+     75% — 40
+     80% — 33
+     90% — 1A
+     95% — 0D
+     100% — 0
+
+     -->
 
 </resources>

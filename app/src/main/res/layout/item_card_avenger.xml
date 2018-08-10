@@ -14,15 +14,16 @@
         android:background="?attr/selectableItemBackground">
 
         <ImageView
+            style="@style/TransitionImage"
             android:id="@+id/ivAvenger"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="170dp"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="H, 1:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tvAvengerAlias"/>
+            app:layout_constraintBottom_toTopOf="@id/tvAvengerAlias"
+            android:contentDescription="@string/cd_avengerPhoto"/>
 
         <TextView
             android:id="@+id/tvAvengerAlias"
