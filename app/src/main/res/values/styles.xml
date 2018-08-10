@@ -34,7 +34,7 @@
 
     <style name="TextLarge" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/textL</item>
-        <item name="android:textColor">#808080</item>
+        <item name="android:textColor">@color/colorTextDefault</item>
     </style>
 
 
@@ -45,18 +45,22 @@
 
     <style name="TextNormal" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/textM</item>
-        <item name="android:textColor">#808080</item>
+        <item name="android:textColor">@color/colorTextDefault</item>
     </style>
 
     <style name="TextTitle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/textXL</item>
-        <item name="android:textColor">#808080</item>
+        <item name="android:textColor">@color/colorTextDefault</item>
     </style>
 
+    <style name="PosterImage" >
+        <item name="android:layout_width">@dimen/sizePoster</item>
+        <item name="android:layout_height">@dimen/sizePoster</item>
+    </style>
 
     <style name="TextLongRead" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/textL</item>
-        <item name="android:textColor">#808080</item>
+        <item name="android:textColor">@color/colorTextDefault</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:lineSpacingExtra">@dimen/marginDecor</item>
     </style>

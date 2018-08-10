@@ -5,6 +5,7 @@ import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.data.source.Firestore
 import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.entity.Avenger
+import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import java.util.concurrent.ExecutionException
@@ -14,6 +15,9 @@ class AvengersRepositoryImpl @Inject constructor (private val firestore: Firesto
 
     override fun avengers(): Either<Failure, List<Avenger>> =
             firebaseRequest(firestore.getAvengers()) { it }
+
+    override fun avengerMovies(avengerId: String): Either<Failure, List<AvengerMovie>> =
+            firebaseRequest(firestore.getAvengerMovies(avengerId)) { it }
 
     private fun <T, R> firebaseRequest (task: Task<T>, transform: (T) -> R): Either<Failure, R> {
         return try {

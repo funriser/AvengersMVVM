@@ -10,8 +10,8 @@
     tools:showIn="@layout/activity_avenger_detail">
 
     <android.support.v7.widget.CardView
-        style="@style/ContentCard"
         android:id="@+id/cardAvengerDescription"
+        style="@style/ContentCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,87 +21,92 @@
             android:padding="@dimen/marginM">
 
             <TextView
+                android:id="@+id/tvDoBTitle"
                 style="@style/TextLarge"
-                android:id="@+id/tvAliasTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/detail_alias"
                 android:layout_marginTop="@dimen/marginL"
+                android:text="@string/detail_age"
                 app:layout_constraintEnd_toStartOf="@+id/tvAgeTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/tvDetailAlias"
-                style="@style/TextLarge.Black"
-                android:text="Stark"
+                android:id="@+id/tvDetailDoB"
+                style="@style/TextLongRead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tvAliasTitle"
-                app:layout_constraintLeft_toLeftOf="@id/tvAliasTitle"
-                app:layout_constraintRight_toRightOf="@id/tvAliasTitle"/>
+                app:layout_constraintLeft_toLeftOf="@id/tvDoBTitle"
+                app:layout_constraintRight_toRightOf="@id/tvDoBTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvDoBTitle" />
 
             <TextView
                 android:id="@+id/tvAgeTitle"
                 style="@style/TextLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/detail_age"
                 android:layout_marginTop="@dimen/marginL"
-                app:layout_constraintEnd_toStartOf="@+id/tvDoBTitle"
-                app:layout_constraintStart_toEndOf="@+id/tvAliasTitle"
+                android:text="@string/detail_dob"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvDoBTitle"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvDetailAge"
-                style="@style/TextLarge.Black"
-                android:text="50"
+                style="@style/TextLongRead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tvAgeTitle"
                 app:layout_constraintLeft_toLeftOf="@id/tvAgeTitle"
-                app:layout_constraintRight_toRightOf="@id/tvAgeTitle"/>
+                app:layout_constraintRight_toRightOf="@id/tvAgeTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvAgeTitle" />
 
             <TextView
-                android:id="@+id/tvDoBTitle"
-                style="@style/TextLarge"
+                android:id="@+id/tvMoviesTitle"
+                style="@style/TextTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/detail_dob"
                 android:layout_marginTop="@dimen/marginL"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvAgeTitle"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/detail_movies"
+                app:layout_constraintTop_toBottomOf="@id/tvDetailAge" />
 
-            <TextView
-                android:id="@+id/tvDetailDoB"
-                style="@style/TextLarge.Black"
-                android:text="1998"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvAvengerMovies"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tvDoBTitle"
-                app:layout_constraintLeft_toLeftOf="@id/tvDoBTitle"
-                app:layout_constraintRight_toRightOf="@id/tvDoBTitle"/>
+                android:layout_marginTop="@dimen/marginL"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMoviesTitle" />
 
             <TextView
                 android:id="@+id/tvStoryTitle"
                 style="@style/TextTitle"
-                android:text="@string/detail_story"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginL"
-                app:layout_constraintTop_toBottomOf="@id/tvDetailAlias"/>
+                android:text="@string/detail_story"
+                app:layout_constraintTop_toBottomOf="@id/rvAvengerMovies" />
 
             <TextView
                 android:id="@+id/tvDetailStory"
                 style="@style/TextLongRead"
-                android:text="@string/lorem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginM"
-                app:layout_constraintTop_toBottomOf="@id/tvStoryTitle"
+                android:text="@string/lorem"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStoryTitle" />
+
+            <ProgressBar
+                android:id="@+id/progressSpinner"
+                android:layout_width="@dimen/sizeSpinnerSmall"
+                android:layout_height="@dimen/sizeSpinnerSmall"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/rvAvengerMovies"
+                app:layout_constraintEnd_toEndOf="@id/rvAvengerMovies"
+                app:layout_constraintStart_toStartOf="@id/rvAvengerMovies"
+                app:layout_constraintTop_toTopOf="@id/rvAvengerMovies" />
 
         </android.support.constraint.ConstraintLayout>
 

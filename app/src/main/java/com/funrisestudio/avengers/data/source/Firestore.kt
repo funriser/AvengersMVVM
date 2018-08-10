@@ -1,6 +1,7 @@
 package com.funrisestudio.avengers.data.source
 
 import com.funrisestudio.avengers.domain.entity.Avenger
+import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,6 +11,7 @@ class Firestore (private val db: FirebaseFirestore) {
 
     companion object {
         private const val PATH_AVENGERS = "avengers"
+        private const val COLLECTION_MOVIES = "movies"
     }
 
     fun getAvengers (): Task<List<Avenger>> =
@@ -17,7 +19,12 @@ class Firestore (private val db: FirebaseFirestore) {
                 t -> t.result.mapMultiple(Avenger::class.java) { apply { id = it.id } }
             }
 
-    private fun <T> QuerySnapshot.mapMultiple(targetClass: Class<T>, apply: T.(DocumentSnapshot) -> T): List<T> =
+    fun getAvengerMovies (avengerId: String): Task<List<AvengerMovie>> =
+            db.collection("$PATH_AVENGERS/$avengerId/$COLLECTION_MOVIES").get().continueWith {
+                it.result.mapMultiple(AvengerMovie::class.java)
+            }
+
+    private fun <T> QuerySnapshot.mapMultiple(targetClass: Class<T>, apply: T.(DocumentSnapshot) -> T = { this }): List<T> =
             documents.map { it.toObject(targetClass)!!.apply(it) }
 
 }

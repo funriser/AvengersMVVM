@@ -8,11 +8,10 @@ import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
-class GetMoviesForAvenger @Inject constructor(private val repository: AvengersRepository, executor: Executor)
+class GetMoviesForAvenger @Inject constructor(private val avengersRepository: AvengersRepository, executor: Executor)
     : UseCase<List<AvengerMovie>, String>(executor) {
 
-    override fun run(params: String): Either<Failure, List<AvengerMovie>> {
-        TODO("not implemented")
-    }
+    override fun run(params: String): Either<Failure, List<AvengerMovie>> =
+            avengersRepository.avengerMovies(params)
 
 }
