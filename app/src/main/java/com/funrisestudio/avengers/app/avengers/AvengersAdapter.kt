@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.view.AvengerView
+import com.funrisestudio.avengers.core.Navigator
 import com.funrisestudio.avengers.core.extensions.inflate
 import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import com.funrisestudio.avengers.core.extensions.toDp
@@ -19,7 +20,7 @@ class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapte
         _, _, _ -> notifyDataSetChanged()
     }
 
-    var clickListener: (AvengerView, View) -> Unit = { _,_ -> }
+    var clickListener: (AvengerView, Navigator.Extras) -> Unit = { _,_ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(parent.inflate(R.layout.item_card_avenger))
@@ -31,13 +32,14 @@ class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapte
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        fun bind (avengerItem: AvengerView, itemClick: (AvengerView, View) -> Unit) {
+        fun bind (avengerItem: AvengerView, itemClick: (AvengerView, Navigator.Extras) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name
             itemView.tvAvengerAlias.text = avengerItem.alias
             itemView.ivAvenger.loadFromUrl(avengerItem.image)
-            itemView.layoutAvenger.setOnClickListener { itemClick.invoke(avengerItem, itemView.ivAvenger) }
+            itemView.layoutAvenger.setOnClickListener {
+                itemClick.invoke(avengerItem, Navigator.Extras(itemView.ivAvenger))
+            }
         }
-
     }
 
 }

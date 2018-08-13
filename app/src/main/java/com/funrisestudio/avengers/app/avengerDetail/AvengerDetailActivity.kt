@@ -1,5 +1,7 @@
 package com.funrisestudio.avengers.app.avengerDetail
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewCompat
@@ -18,11 +20,13 @@ import kotlinx.android.synthetic.main.activity_avenger_detail.*
 import kotlinx.android.synthetic.main.content_avenger_detail.*
 import javax.inject.Inject
 
-class AvengerDetailActivity : BaseActivity () {
+class AvengerDetailActivity : BaseActivity (), AvengerDetailsAnimator.AppBarSlideListener {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
 
     @Inject lateinit var movieAdapter: AvengerMoviesAdapter
+
+    @Inject lateinit var activityAnimator: AvengerDetailsAnimator
 
     private lateinit var viewModel: AvengerDetailViewModel
 
@@ -31,7 +35,9 @@ class AvengerDetailActivity : BaseActivity () {
         setContentView(R.layout.activity_avenger_detail)
         setSupportActionBar(toolbar)
         App.appComponent.inject(this)
-        window.sharedElementsUseOverlay = false
+
+        activityAnimator.disableOverlayForTransition(this)
+        activityAnimator.postponeTransition(this)
 
         viewModel = viewModel(viewModelFactory) {
             observe(avengerMovies, ::renderAvengerMovies)
@@ -51,8 +57,7 @@ class AvengerDetailActivity : BaseActivity () {
     }
 
     private fun initView () {
-        supportPostponeEnterTransition()
-        appBarDetail.addOnOffsetChangedListener(offsetChangeListener)
+        activityAnimator.setAppBarSlideListener(appBarDetail, this, 20)
         rvAvengerMovies.itemAnimator = DefaultItemAnimator ()
         rvAvengerMovies.layoutManager = LinearLayoutManager (this, LinearLayoutManager.HORIZONTAL, false)
         rvAvengerMovies.adapter = movieAdapter
@@ -76,38 +81,32 @@ class AvengerDetailActivity : BaseActivity () {
         toast(failure.toString())
     }
 
-    private val offsetChangeListener = object: AppBarLayout.OnOffsetChangedListener {
-        val showImagePercentage = 20
-        var mMaxScrollSize = 0
-        var mIsImageHidden = false
+    override fun onAppBarOpened() {
+        activityAnimator.scaleDownView(fab)
+    }
 
-        override fun onOffsetChanged(appBarLayout: AppBarLayout, i: Int) {
-            if (mMaxScrollSize == 0)
-                mMaxScrollSize = appBarLayout.totalScrollRange
-            val currentScrollPercentage = Math.abs(i) * 100 / mMaxScrollSize
-            if (currentScrollPercentage >= showImagePercentage) {
-                if (!mIsImageHidden) {
-                    mIsImageHidden = true
-                    ViewCompat.animate(fab).scaleY(0f).scaleX(0f).start()
-                }
-            }
-            if (currentScrollPercentage < showImagePercentage) {
-                if (mIsImageHidden) {
-                    mIsImageHidden = false
-                    ViewCompat.animate(fab).scaleY(1f).scaleX(1f).start()
-                }
-            }
-        }
+    override fun onAppBarClosed() {
+        activityAnimator.scaleUpView(fab)
     }
 
     override fun onBackPressed() {
-        window.sharedElementsUseOverlay = true
+        activityAnimator.enableOverlayForTransition(this)
         super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        activityAnimator.removeAppBarSlideListener(appBarDetail)
+        super.onDestroy()
     }
 
     companion object {
 
-        const val AVENGER_DETAIL = "avengerDetail"
+        private const val AVENGER_DETAIL = "avengerDetail"
+
+        fun callingIntent(context: Context, avengerView: AvengerView): Intent =
+                Intent(context, AvengerDetailActivity::class.java).apply {
+                    putExtra(AVENGER_DETAIL, avengerView)
+                }
 
     }
 
