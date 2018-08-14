@@ -1,6 +1,7 @@
 package com.funrisestudio.avengers.app.avengers
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
@@ -62,7 +63,13 @@ class AvengersActivity : BaseActivity() {
 
     private fun handleFailure (failure: Failure?) {
         hideProgress()
-        toast(failure.toString())
+        when (failure) {
+            is Failure.NetworkConnection ->
+                popSnackbar(layoutMain,
+                        getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
+                        getString(R.string.error_try_again)) { loadAvengers() }
+            else -> popSnackbar(layoutMain, getString(R.string.error_server))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

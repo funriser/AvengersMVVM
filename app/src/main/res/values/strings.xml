@@ -7,8 +7,12 @@
     <string name="detail_dob">Dob</string>
     <string name="detail_story">Story</string>
     <string name="imageTransition">imgTransition</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec elementum ornare mollis. Integer quis ipsum nec magna blandit viverra commodo eget ex. Maecenas luctus risus sit amet euismod vehicula. Phasellus arcu neque, sagittis ut tempus eu, placerat sit amet ipsum. Nulla leo magna, semper a fermentum sit amet, ornare in purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc porta ornare ligula, vel porta sapien porta vestibulum. Donec maximus velit non erat hendrerit elementum. Pellentesque sit amet luctus metus, id tristique odio.</string>
     <string name="cd_avengerPhoto">AvengerPhoto</string>
     <string name="detail_movies">Movies</string>
+
+    <string name="error_network">No network connection</string>
+    <string name="error_try_again">Try again</string>
+    <string name="error_server">Server error</string>
+
     <string name="author">by Funriser</string>
 </resources>

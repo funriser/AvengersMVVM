@@ -3,6 +3,7 @@ package com.funrisestudio.avengers.core.extensions
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.LayoutRes
+import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,13 @@ fun ImageView.loadUrlAndStartTransition(url: String, activity: FragmentActivity)
     val target: Target<Drawable> = ImageViewBaseTarget(this,
             activity)
     Glide.with(context.applicationContext).load(url).into(target)
+}
+
+fun Context.popSnackbar (view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG, actionName: String = "", action: () -> Unit = {}) {
+    val snackbar = Snackbar.make(view, text, duration)
+    if (actionName.isNotEmpty() && action != {})
+        snackbar.setAction(actionName) { action.invoke() }
+    snackbar.show()
 }
 
 private class ImageViewBaseTarget (var imageView: ImageView?, var activity: FragmentActivity?) : BaseTarget<Drawable>() {

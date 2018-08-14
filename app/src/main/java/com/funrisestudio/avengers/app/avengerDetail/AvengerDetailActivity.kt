@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
@@ -30,6 +31,8 @@ class AvengerDetailActivity : BaseActivity (), AvengerDetailsAnimator.AppBarSlid
 
     private lateinit var viewModel: AvengerDetailViewModel
 
+    private lateinit var avengerId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_avenger_detail)
@@ -45,13 +48,14 @@ class AvengerDetailActivity : BaseActivity (), AvengerDetailsAnimator.AppBarSlid
         }
 
         val args = intent.getParcelableExtra(AVENGER_DETAIL) as AvengerView
+        avengerId = args.id
 
         initView()
-        loadAvengerMovies(args.id)
+        loadAvengerMovies()
         showAvengerDetails(args)
     }
 
-    private fun loadAvengerMovies (avengerId: String) {
+    private fun loadAvengerMovies () {
         showProgress()
         viewModel.getAvengerMovies(avengerId)
     }
@@ -78,7 +82,13 @@ class AvengerDetailActivity : BaseActivity (), AvengerDetailsAnimator.AppBarSlid
 
     private fun handleFailure (failure: Failure?) {
         hideProgress()
-        toast(failure.toString())
+        when (failure) {
+            is Failure.NetworkConnection ->
+                popSnackbar(layoutDetail,
+                        getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
+                        getString(R.string.error_try_again)) { loadAvengerMovies() }
+            else -> popSnackbar(layoutDetail, getString(R.string.error_server))
+        }
     }
 
     override fun onAppBarOpened() {
