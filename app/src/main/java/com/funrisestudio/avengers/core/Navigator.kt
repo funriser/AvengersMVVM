@@ -1,14 +1,14 @@
 package com.funrisestudio.avengers.core
 
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.FragmentActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.FragmentActivity
 import android.view.View
 import com.funrisestudio.avengers.app.avengerDetail.AvengerDetailActivity
 import com.funrisestudio.avengers.app.view.AvengerView
 
 class Navigator {
 
-    fun goToAvengerDetails (from: FragmentActivity, transfer: AvengerView, extras: Navigator.Extras? = null) {
+    fun goToAvengerDetails (from: androidx.fragment.app.FragmentActivity, transfer: AvengerView, extras: Navigator.Extras? = null) {
         val intent = AvengerDetailActivity.callingIntent(from, transfer)
         if (extras == null) {
             from.startActivity(intent)

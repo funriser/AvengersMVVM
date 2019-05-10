@@ -1,7 +1,7 @@
 package com.funrisestudio.avengers.app.avengerDetail
 
-import android.support.design.widget.AppBarLayout
-import android.support.v4.view.ViewCompat
+import com.google.android.material.appbar.AppBarLayout
+import androidx.core.view.ViewCompat
 import android.view.View
 import javax.inject.Inject
 

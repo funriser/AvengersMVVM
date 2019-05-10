@@ -1,7 +1,7 @@
 package com.funrisestudio.avengers.core.di.viewmodel
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.funrisestudio.avengers.app.avengerDetail.AvengerDetailViewModel
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
 import dagger.Binds

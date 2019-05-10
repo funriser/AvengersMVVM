@@ -3,11 +3,11 @@ package com.funrisestudio.avengers.app.avengerDetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.funrisestudio.avengers.App
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.view.AvengerMovieView
@@ -62,8 +62,8 @@ class AvengerDetailActivity : BaseActivity (), AvengerDetailsAnimator.AppBarSlid
 
     private fun initView () {
         activityAnimator.setAppBarSlideListener(appBarDetail, this, 20)
-        rvAvengerMovies.itemAnimator = DefaultItemAnimator ()
-        rvAvengerMovies.layoutManager = LinearLayoutManager (this, LinearLayoutManager.HORIZONTAL, false)
+        rvAvengerMovies.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        rvAvengerMovies.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
         rvAvengerMovies.adapter = movieAdapter
     }
 

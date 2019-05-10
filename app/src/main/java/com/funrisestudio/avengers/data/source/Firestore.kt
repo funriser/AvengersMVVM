@@ -16,12 +16,12 @@ class Firestore (private val db: FirebaseFirestore) {
 
     fun getAvengers (): Task<List<Avenger>> =
             db.collection(PATH_AVENGERS).get().continueWith {
-                t -> t.result.mapMultiple(Avenger::class.java) { apply { id = it.id } }
+                t -> t.result?.mapMultiple(Avenger::class.java) { apply { id = it.id } }
             }
 
     fun getAvengerMovies (avengerId: String): Task<List<AvengerMovie>> =
             db.collection("$PATH_AVENGERS/$avengerId/$COLLECTION_MOVIES").get().continueWith {
-                it.result.mapMultiple(AvengerMovie::class.java)
+                it.result?.mapMultiple(AvengerMovie::class.java)
             }
 
     private fun <T> QuerySnapshot.mapMultiple(targetClass: Class<T>, apply: T.(DocumentSnapshot) -> T = { this }): List<T> =

@@ -1,7 +1,7 @@
 package com.funrisestudio.avengers.app.avengers
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.UseCase

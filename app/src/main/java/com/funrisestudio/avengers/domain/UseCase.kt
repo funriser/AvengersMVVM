@@ -13,7 +13,7 @@ abstract class UseCase<out Type, in Params> (private val executor: Executor) whe
     operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
         Tasks
                 .call(executor, Callable { run(params) })
-                .addOnCompleteListener { onResult.invoke(it.result) }
+                .addOnCompleteListener { onResult.invoke(it.result!!) }
     }
 
     class None

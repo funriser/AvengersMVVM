@@ -1,9 +1,9 @@
 package com.funrisestudio.avengers.app.avengers
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.funrisestudio.avengers.App
@@ -48,8 +48,8 @@ class AvengersActivity : BaseActivity() {
     }
 
     private fun initView () {
-        rvAvengers.layoutManager = GridLayoutManager (this, 2)
-        rvAvengers.itemAnimator = DefaultItemAnimator ()
+        rvAvengers.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
+        rvAvengers.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         rvAvengers.adapter = avengersAdapter
         avengersAdapter.clickListener = { avInfo, navExtras ->
             navigator.goToAvengerDetails(this, avInfo, navExtras)

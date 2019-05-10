@@ -1,6 +1,6 @@
 package com.funrisestudio.avengers.app.avengers
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_card_avenger.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
+class AvengersAdapter @Inject constructor(): androidx.recyclerview.widget.RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
 
     internal var collection: List<AvengerView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()
@@ -30,7 +30,7 @@ class AvengersAdapter @Inject constructor(): RecyclerView.Adapter<AvengersAdapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
             = holder.bind(collection[position], clickListener)
 
-    class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
+    class ViewHolder (itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bind (avengerItem: AvengerView, itemClick: (AvengerView, Navigator.Extras) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name

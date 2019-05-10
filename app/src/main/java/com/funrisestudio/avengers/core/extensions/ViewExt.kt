@@ -2,9 +2,9 @@ package com.funrisestudio.avengers.core.extensions
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.annotation.LayoutRes
-import android.support.design.widget.Snackbar
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.LayoutRes
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +26,7 @@ fun ViewGroup.inflate (@LayoutRes layoutId: Int, root: ViewGroup = this, attachT
 fun ImageView.loadFromUrl(url: String) =
         Glide.with(this.context.applicationContext).load(url).into(this)
 
-fun ImageView.loadUrlAndStartTransition(url: String, activity: FragmentActivity) {
+fun ImageView.loadUrlAndStartTransition(url: String, activity: androidx.fragment.app.FragmentActivity) {
     val target: Target<Drawable> = ImageViewBaseTarget(this,
             activity)
     Glide.with(context.applicationContext).load(url).into(target)
@@ -39,7 +39,7 @@ fun Context.popSnackbar (view: View, text: String = "Some text", duration: Int =
     snackbar.show()
 }
 
-private class ImageViewBaseTarget (var imageView: ImageView?, var activity: FragmentActivity?) : BaseTarget<Drawable>() {
+private class ImageViewBaseTarget (var imageView: ImageView?, var activity: androidx.fragment.app.FragmentActivity?) : BaseTarget<Drawable>() {
     override fun removeCallback(cb: SizeReadyCallback) {
         imageView = null
         activity = null
