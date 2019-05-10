@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetMoviesForAvenger @Inject constructor(private val avengersRepository: AvengersRepository, executor: Executor)
     : UseCase<List<AvengerMovie>, String>(executor) {
 
-    override fun run(params: String): Either<Failure, List<AvengerMovie>> =
+    override suspend fun run(params: String): Either<Failure, List<AvengerMovie>> =
             avengersRepository.avengerMovies(params)
 
 }

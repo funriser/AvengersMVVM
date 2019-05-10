@@ -2,6 +2,7 @@ package com.funrisestudio.avengers.app.avengerDetail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.funrisestudio.avengers.app.view.AvengerMovieView
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
@@ -14,7 +15,7 @@ class AvengerDetailViewModel @Inject constructor (private val interactor: GetMov
 
     val failure = MutableLiveData<Failure> ()
 
-    fun getAvengerMovies (avengerId: String) = interactor.invoke(avengerId) {
+    fun getAvengerMovies (avengerId: String) = interactor.invoke(avengerId, viewModelScope) {
         it.either(this::onGetAvengerMoviesError,this::onGetAvengerMoviesSuccess)
     }
 
