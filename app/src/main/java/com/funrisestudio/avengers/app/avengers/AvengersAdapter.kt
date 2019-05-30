@@ -1,7 +1,5 @@
 package com.funrisestudio.avengers.app.avengers
 
-import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.funrisestudio.avengers.R
@@ -9,12 +7,10 @@ import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.Navigator
 import com.funrisestudio.avengers.core.extensions.inflate
 import com.funrisestudio.avengers.core.extensions.loadFromUrl
-import com.funrisestudio.avengers.core.extensions.toDp
 import kotlinx.android.synthetic.main.item_card_avenger.view.*
-import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class AvengersAdapter @Inject constructor(): androidx.recyclerview.widget.RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
+class AvengersAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
 
     internal var collection: List<AvengerView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()

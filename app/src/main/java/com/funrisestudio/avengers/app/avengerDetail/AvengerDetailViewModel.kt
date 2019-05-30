@@ -7,9 +7,8 @@ import com.funrisestudio.avengers.app.view.AvengerMovieView
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.funrisestudio.avengers.domain.interactor.GetMoviesForAvenger
-import javax.inject.Inject
 
-class AvengerDetailViewModel @Inject constructor (private val interactor: GetMoviesForAvenger) : ViewModel () {
+class AvengerDetailViewModel(private val interactor: GetMoviesForAvenger) : ViewModel () {
 
     val avengerMovies = MutableLiveData<List<AvengerMovieView>> ()
 

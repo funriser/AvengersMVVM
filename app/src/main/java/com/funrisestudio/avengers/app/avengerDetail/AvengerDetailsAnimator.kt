@@ -3,9 +3,8 @@ package com.funrisestudio.avengers.app.avengerDetail
 import com.google.android.material.appbar.AppBarLayout
 import androidx.core.view.ViewCompat
 import android.view.View
-import javax.inject.Inject
 
-class AvengerDetailsAnimator @Inject constructor() {
+class AvengerDetailsAnimator {
 
     companion object {
         private const val SCALE_UP_VALUE = 1.0F

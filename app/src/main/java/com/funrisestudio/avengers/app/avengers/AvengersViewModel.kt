@@ -8,9 +8,8 @@ import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
-import javax.inject.Inject
 
-class AvengersViewModel @Inject constructor (private val getAvengers: GetAvengers): ViewModel () {
+class AvengersViewModel(private val getAvengers: GetAvengers): ViewModel () {
 
     val avengers = MutableLiveData<List<AvengerView>>()
 

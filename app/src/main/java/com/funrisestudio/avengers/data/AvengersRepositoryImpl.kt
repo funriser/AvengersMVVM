@@ -9,11 +9,9 @@ import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import java.util.concurrent.ExecutionException
-import javax.inject.Inject
 
-class AvengersRepositoryImpl @Inject constructor (
+class AvengersRepositoryImpl(
         private val firestore: Firestore,
         private val networkHandler: NetworkHandler
 ): AvengersRepository {

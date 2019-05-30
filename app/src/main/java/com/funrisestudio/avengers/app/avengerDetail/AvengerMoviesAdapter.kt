@@ -8,10 +8,9 @@ import com.funrisestudio.avengers.app.view.AvengerMovieView
 import com.funrisestudio.avengers.core.extensions.inflate
 import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.item_poster.view.*
-import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class AvengerMoviesAdapter @Inject constructor() : androidx.recyclerview.widget.RecyclerView.Adapter<AvengerMoviesAdapter.ViewHolder> () {
+class AvengerMoviesAdapter: RecyclerView.Adapter<AvengerMoviesAdapter.ViewHolder> () {
 
     var listMovies: List<AvengerMovieView> by Delegates.observable(emptyList()) {
         _,_,_ -> notifyDataSetChanged()
@@ -26,7 +25,7 @@ class AvengerMoviesAdapter @Inject constructor() : androidx.recyclerview.widget.
 
     override fun getItemCount(): Int  = listMovies.size
 
-    class ViewHolder (itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder (itemView) {
+    class ViewHolder (itemView: View): RecyclerView.ViewHolder (itemView) {
 
         fun binHolder (avengerMovieView: AvengerMovieView) {
             itemView.ivAvengerMovie.loadFromUrl(avengerMovieView.poster)
