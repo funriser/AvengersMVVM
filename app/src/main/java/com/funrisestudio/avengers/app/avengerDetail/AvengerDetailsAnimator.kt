@@ -3,6 +3,8 @@ package com.funrisestudio.avengers.app.avengerDetail
 import com.google.android.material.appbar.AppBarLayout
 import androidx.core.view.ViewCompat
 import android.view.View
+import androidx.transition.TransitionInflater
+import com.funrisestudio.avengers.R
 
 class AvengerDetailsAnimator {
 
@@ -14,16 +16,14 @@ class AvengerDetailsAnimator {
     private var appBarOffsetChangedListener: AppBarLayout.OnOffsetChangedListener? = null
     private var appBarSlideListener: AppBarSlideListener? = null
 
-    internal fun enableOverlayForTransition (activity: AvengerDetailActivity) {
-        activity.window.sharedElementsUseOverlay = true
+    internal fun setUpTransitions(fragment: AvengerDetailFragment) {
+        val inflater = TransitionInflater.from(fragment.context)
+        fragment.sharedElementReturnTransition = inflater.inflateTransition(R.transition.shared_transition)
+        fragment.sharedElementEnterTransition = inflater.inflateTransition(R.transition.shared_transition_no_overlay)
     }
 
-    internal fun disableOverlayForTransition (activity: AvengerDetailActivity) {
-        activity.window.sharedElementsUseOverlay = false
-    }
-
-    internal fun postponeTransition (activity: AvengerDetailActivity) {
-        activity.supportPostponeEnterTransition()
+    internal fun postponeTransition (fragment: AvengerDetailFragment) {
+       fragment.postponeEnterTransition()
     }
 
     internal fun scaleUpView (view: View) = scaleView(view, SCALE_UP_VALUE, SCALE_UP_VALUE)

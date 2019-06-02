@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/avengersFragment">
+
+    <fragment
+        android:id="@+id/avengersFragment"
+        android:name="com.funrisestudio.avengers.app.avengers.AvengersFragment"
+        android:label="AvengersFragment" >
+        <action
+            android:id="@+id/actionAvengersToDetails"
+            app:destination="@id/avengerDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/avengerDetailFragment"
+        android:name="com.funrisestudio.avengers.app.avengerDetail.AvengerDetailFragment"
+        android:label="activity_avenger_detail"
+        tools:layout="@layout/fragment_avenger_detail" >
+        <argument
+            android:name="avenger"
+            app:argType="com.funrisestudio.avengers.app.view.AvengerView" />
+        <argument
+            android:name="transitionName"
+            app:argType="string" />
+    </fragment>
+
+</navigation>

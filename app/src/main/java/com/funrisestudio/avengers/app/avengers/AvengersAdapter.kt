@@ -4,7 +4,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.view.AvengerView
-import com.funrisestudio.avengers.core.Navigator
 import com.funrisestudio.avengers.core.extensions.inflate
 import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.item_card_avenger.view.*
@@ -16,7 +15,7 @@ class AvengersAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<Avenger
         _, _, _ -> notifyDataSetChanged()
     }
 
-    var clickListener: (AvengerView, Navigator.Extras) -> Unit = { _,_ -> }
+    var clickListener: (AvengerView, View) -> Unit = { _,_ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(parent.inflate(R.layout.item_card_avenger))
@@ -28,12 +27,14 @@ class AvengersAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<Avenger
 
     class ViewHolder (itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
-        fun bind (avengerItem: AvengerView, itemClick: (AvengerView, Navigator.Extras) -> Unit) {
+        fun bind (avengerItem: AvengerView, itemClick: (AvengerView, View) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name
             itemView.tvAvengerAlias.text = avengerItem.alias
             itemView.ivAvenger.loadFromUrl(avengerItem.image)
+            val transitionName = itemView.context.getString(R.string.imageTransition) + adapterPosition
+            itemView.ivAvenger.transitionName = transitionName
             itemView.layoutAvenger.setOnClickListener {
-                itemClick.invoke(avengerItem, Navigator.Extras(itemView.ivAvenger))
+                itemClick.invoke(avengerItem, itemView.ivAvenger)
             }
         }
     }

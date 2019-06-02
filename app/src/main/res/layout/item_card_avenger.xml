@@ -14,7 +14,6 @@
         android:background="?attr/selectableItemBackground">
 
         <ImageView
-            style="@style/TransitionImage"
             android:id="@+id/ivAvenger"
             android:layout_width="0dp"
             android:layout_height="170dp"

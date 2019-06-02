@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.exception.Failure
+import com.funrisestudio.avengers.core.extensions.pushOrUpdateIfNull
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
@@ -16,8 +17,10 @@ class AvengersViewModel(private val getAvengers: GetAvengers): ViewModel () {
     val failure = MutableLiveData<Failure> ()
 
     fun getAvengers() {
-        getAvengers.invoke(UseCase.None(), viewModelScope) {
-            it.either(::onGetAvengersError, ::onGetAvengersSuccess)
+        avengers.pushOrUpdateIfNull {
+            getAvengers.invoke(UseCase.None(), viewModelScope) {
+                it.either(::onGetAvengersError, ::onGetAvengersSuccess)
+            }
         }
     }
 
