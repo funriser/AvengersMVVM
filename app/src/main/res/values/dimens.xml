@@ -3,6 +3,7 @@
 
     <dimen name="sizePoster">60dp</dimen>
     <dimen name="sizeSpinnerSmall">30dp</dimen>
+    <dimen name="sizeActionBar">50dp</dimen>
 
     <dimen name="marginXS">3dp</dimen>
     <dimen name="marginS">5dp</dimen>
@@ -12,7 +13,8 @@
 
     <dimen name="marginDecor">8dp</dimen>
 
-    <dimen name="marginCollapsingBottom">94dp</dimen>
+    <dimen name="marginCollapsingBottom">88dp</dimen>
+    <dimen name="marginCollapsingOverlap">78dp</dimen>
 
     <dimen name="textM">14sp</dimen>
     <dimen name="textL">16sp</dimen>

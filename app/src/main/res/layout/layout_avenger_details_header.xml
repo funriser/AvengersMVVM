@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.funrisestudio.avengers.app.CollapsibleToolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutAvengerDetailsHeader"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:minHeight="@dimen/sizeActionBar"
+    app:layoutDescription="@xml/motion_avenger_details_header"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+    <ImageView
+        android:id="@+id/ivAvenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:contentDescription="@string/cd_avengerPhoto"
+        android:scaleType="centerCrop"
+        android:tint="@color/colorBlackTransparent" />
+
+    <TextView
+        android:id="@+id/tvAvengerHeader"
+        style="@style/TextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</com.funrisestudio.avengers.app.CollapsibleToolbar>

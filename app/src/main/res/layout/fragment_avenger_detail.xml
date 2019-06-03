@@ -9,34 +9,10 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:expandedTitleMarginBottom="@dimen/marginCollapsingBottom"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:expandedTitleTextAppearance="@style/TextHeader"
-            app:contentScrim="@color/colorPrimary">
-            
-            <ImageView
-                android:id="@+id/ivAvenger"
-                android:tint="@color/colorBlackTransparent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/cd_avengerPhoto"/>
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        <include layout="@layout/layout_avenger_details_header" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

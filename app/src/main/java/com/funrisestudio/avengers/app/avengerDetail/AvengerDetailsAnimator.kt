@@ -22,29 +22,29 @@ class AvengerDetailsAnimator {
         fragment.sharedElementEnterTransition = inflater.inflateTransition(R.transition.shared_transition_no_overlay)
     }
 
-    internal fun postponeTransition (fragment: AvengerDetailFragment) {
-       fragment.postponeEnterTransition()
+    internal fun postponeTransition(fragment: AvengerDetailFragment) {
+        fragment.postponeEnterTransition()
     }
 
-    internal fun scaleUpView (view: View) = scaleView(view, SCALE_UP_VALUE, SCALE_UP_VALUE)
+    internal fun scaleUpView(view: View) = scaleView(view, SCALE_UP_VALUE, SCALE_UP_VALUE)
 
-    internal fun scaleDownView (view: View) = scaleView(view, SCALE_DOWN_VALUE, SCALE_DOWN_VALUE)
+    internal fun scaleDownView(view: View) = scaleView(view, SCALE_DOWN_VALUE, SCALE_DOWN_VALUE)
 
     private fun scaleView(view: View, x: Float, y: Float) =
             ViewCompat.animate(view).scaleX(x).scaleY(y).start()
 
-    internal fun setAppBarSlideListener (appBarLayout: AppBarLayout, slideListener: AppBarSlideListener, percent: Int) {
+    internal fun setAppBarSlideListener(appBarLayout: AppBarLayout, slideListener: AppBarSlideListener, percent: Int) {
         appBarSlideListener = slideListener
         appBarOffsetChangedListener = AppBarPercentageSlideListener(percent)
         appBarLayout.addOnOffsetChangedListener(appBarOffsetChangedListener)
     }
 
-    internal fun removeAppBarSlideListener (appBarLayout: AppBarLayout) {
+    internal fun removeAppBarSlideListener(appBarLayout: AppBarLayout) {
         appBarLayout.removeOnOffsetChangedListener(appBarOffsetChangedListener)
         appBarSlideListener = null
     }
 
-    inner class AppBarPercentageSlideListener (private val showingPercentage: Int)
+    inner class AppBarPercentageSlideListener(private val showingPercentage: Int)
         : AppBarLayout.OnOffsetChangedListener {
 
         private var maxScrollSize = 0
@@ -71,9 +71,9 @@ class AvengerDetailsAnimator {
 
     interface AppBarSlideListener {
 
-        fun onAppBarOpened ()
+        fun onAppBarOpened()
 
-        fun onAppBarClosed ()
+        fun onAppBarClosed()
 
     }
 

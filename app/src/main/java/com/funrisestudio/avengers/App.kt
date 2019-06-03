@@ -5,6 +5,7 @@ import com.funrisestudio.avengers.app.avengerDetail.AvengerDetailViewModel
 import com.funrisestudio.avengers.app.avengerDetail.AvengerDetailsAnimator
 import com.funrisestudio.avengers.app.avengerDetail.AvengerMoviesAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAdapter
+import com.funrisestudio.avengers.app.avengers.AvengersAnimator
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
 import com.funrisestudio.avengers.core.Navigator
 import com.funrisestudio.avengers.core.NetworkHandler
@@ -49,6 +50,7 @@ class App : Application () {
     }
 
     private val avengersModule = module {
+        factory { AvengersAnimator() }
         factory { AvengersAdapter() }
         factory { GetAvengers(get(), get()) }
         viewModel { AvengersViewModel(get()) }

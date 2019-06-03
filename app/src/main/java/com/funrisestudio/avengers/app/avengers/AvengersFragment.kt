@@ -18,12 +18,13 @@ import com.funrisestudio.avengers.core.extensions.popSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.content_avengers.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AvengersFragment: BaseFragment() {
 
     private val avengersAdapter: AvengersAdapter by inject()
-    private val viewModel: AvengersViewModel by sharedViewModel()
+    private val avengersAnimator: AvengersAnimator by inject()
+    private val viewModel: AvengersViewModel by viewModel()
 
     override var layoutId: Int = R.layout.fragment_avengers
 
@@ -48,28 +49,17 @@ class AvengersFragment: BaseFragment() {
     }
 
     private fun initView() {
-        setUpReturnTransition()
+        avengersAnimator.setUpReturnTransition(this)
         rvAvengers.layoutManager = GridLayoutManager(context, 2)
         rvAvengers.itemAnimator = DefaultItemAnimator()
         rvAvengers.adapter = avengersAdapter
         avengersAdapter.clickListener = { avInfo, trView->
             val navExtras = FragmentNavigatorExtras(
-                    trView to trView.transitionName
-            )
+                    trView to trView.transitionName)
             val action = AvengersFragmentDirections.actionAvengersToDetails(avInfo,
                     trView.transitionName)
             findNavController().navigate(action, navExtras)
         }
-    }
-
-    private fun setUpReturnTransition() {
-        postponeEnterTransition()
-        view?.viewTreeObserver?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                startPostponedEnterTransition()
-                view?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-            }
-        })
     }
 
     private fun renderAvengers(list: List<AvengerView>?) {

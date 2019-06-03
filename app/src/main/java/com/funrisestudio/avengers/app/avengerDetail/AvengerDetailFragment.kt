@@ -16,6 +16,7 @@ import com.funrisestudio.avengers.core.extensions.popSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_avenger_detail.*
 import kotlinx.android.synthetic.main.content_avenger_detail.*
+import kotlinx.android.synthetic.main.layout_avenger_details_header.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -61,10 +62,9 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
         rvAvengerMovies.adapter = movieAdapter
     }
 
-
     private fun showAvengerDetails() {
         args.avenger.let {
-            collapsingToolbar.title = it.alias
+            tvAvengerHeader.text = it.alias
             tvDetailAge.text = it.age.toString()
             tvDetailDoB.text = it.dob
             tvDetailStory.text = it.story
@@ -94,6 +94,11 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
 
     override fun onAppBarClosed() {
         fragmentAnimator.scaleUpView(fab)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentAnimator.removeAppBarSlideListener(appBarDetail)
     }
 
 }
