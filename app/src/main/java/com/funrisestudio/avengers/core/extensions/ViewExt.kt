@@ -1,27 +1,21 @@
 package com.funrisestudio.avengers.core.extensions
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.LayoutRes
-import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BaseTarget
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.snackbar.Snackbar
 
-fun Context.toast (message: String = "Hello", length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, length).show()
-}
-
-fun ViewGroup.inflate (@LayoutRes layoutId: Int, root: ViewGroup = this, attachToRoot: Boolean = false): View
-        = LayoutInflater.from(context).inflate(layoutId, root, attachToRoot)
+fun ViewGroup.inflate(@LayoutRes layoutId: Int, root: ViewGroup = this, attachToRoot: Boolean = false): View =
+        LayoutInflater.from(context).inflate(layoutId, root, attachToRoot)
 
 fun ImageView.loadFromUrl(url: String) =
         Glide.with(this.context.applicationContext).load(url).into(this)
@@ -31,21 +25,15 @@ fun ImageView.loadUrlAndStartTransition(url: String, fragment: Fragment) {
     Glide.with(context.applicationContext).load(url).into(target)
 }
 
-fun Context.popSnackbar (view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG, actionName: String = "", action: () -> Unit = {}) {
+fun Fragment.popSnackbar(view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG,
+                         actionName: String = "", action: () -> Unit = {}) {
     val snackbar = Snackbar.make(view, text, duration)
     if (actionName.isNotEmpty() && action != {})
         snackbar.setAction(actionName) { action.invoke() }
     snackbar.show()
 }
 
-fun Fragment.popSnackbar (view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG, actionName: String = "", action: () -> Unit = {}) {
-    val snackbar = Snackbar.make(view, text, duration)
-    if (actionName.isNotEmpty() && action != {})
-        snackbar.setAction(actionName) { action.invoke() }
-    snackbar.show()
-}
-
-private class ImageViewBaseTarget (var imageView: ImageView?, var fragment: Fragment?) : BaseTarget<Drawable>() {
+private class ImageViewBaseTarget(var imageView: ImageView?, var fragment: Fragment?) : BaseTarget<Drawable>() {
     override fun removeCallback(cb: SizeReadyCallback) {
         imageView = null
         fragment = null

@@ -7,7 +7,6 @@ import com.funrisestudio.avengers.app.avengerDetail.AvengerMoviesAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAnimator
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
-import com.funrisestudio.avengers.core.Navigator
 import com.funrisestudio.avengers.core.NetworkHandler
 import com.funrisestudio.avengers.data.AvengersRepositoryImpl
 import com.funrisestudio.avengers.data.source.Firestore
@@ -23,7 +22,7 @@ import org.koin.dsl.module
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class App : Application () {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -31,15 +30,8 @@ class App : Application () {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(
-                    appModule, dataModule,
-                    avengersModule, avengerDetailModule
-            ))
+            modules(listOf(dataModule, avengersModule, avengerDetailModule))
         }
-    }
-
-    private val appModule = module {
-        single { Navigator() }
     }
 
     private val dataModule = module {

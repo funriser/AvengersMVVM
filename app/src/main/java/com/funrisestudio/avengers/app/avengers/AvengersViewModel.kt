@@ -10,11 +10,11 @@ import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
 
-class AvengersViewModel(private val getAvengers: GetAvengers): ViewModel () {
+class AvengersViewModel(private val getAvengers: GetAvengers) : ViewModel() {
 
     val avengers = MutableLiveData<List<AvengerView>>()
 
-    val failure = MutableLiveData<Failure> ()
+    val failure = MutableLiveData<Failure>()
 
     fun getAvengers() {
         avengers.pushOrUpdateIfNull {
@@ -24,11 +24,11 @@ class AvengersViewModel(private val getAvengers: GetAvengers): ViewModel () {
         }
     }
 
-    private fun onGetAvengersSuccess (avengersList: List<Avenger>) {
+    private fun onGetAvengersSuccess(avengersList: List<Avenger>) {
         avengers.value = avengersList.map { AvengerView(it) }
     }
 
-    private fun onGetAvengersError (failure: Failure) {
+    private fun onGetAvengersError(failure: Failure) {
         this.failure.value = failure
     }
 

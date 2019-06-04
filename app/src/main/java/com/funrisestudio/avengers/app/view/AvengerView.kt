@@ -6,9 +6,12 @@ import com.funrisestudio.avengers.domain.entity.Avenger
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AvengerView (val id: String, val name: String, val age: Int, val alias: String, val image: String, val dob: String, val story: String) : Parcelable {
+class AvengerView(
+        val id: String, val name: String, val age: Int, val alias: String,
+        val image: String, val dob: String, val story: String
+) : Parcelable {
 
-    constructor (avenger: Avenger): this (
+    constructor (avenger: Avenger) : this(
             avenger.id,
             avenger.name,
             avenger.age,

@@ -4,9 +4,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 
-class AvengerMovieView (val name: String, val poster: String) : Parcelable {
+class AvengerMovieView(val name: String, val poster: String) : Parcelable {
 
-    constructor (avengerMovie: AvengerMovie) : this (avengerMovie.name, avengerMovie.poster)
+    constructor (avengerMovie: AvengerMovie) : this(avengerMovie.name, avengerMovie.poster)
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),

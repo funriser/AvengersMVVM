@@ -8,10 +8,8 @@ import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.funrisestudio.avengers.R
-import com.funrisestudio.avengers.core.Navigator
-import org.koin.android.ext.android.inject
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutId, container, false)
@@ -20,11 +18,11 @@ abstract class BaseFragment: Fragment() {
     @LayoutRes
     open var layoutId = R.layout.layout_empty
 
-    protected fun showProgress () {
+    protected fun showProgress() {
         view?.findViewById<ProgressBar>(R.id.progressSpinner)?.visibility = View.VISIBLE
     }
 
-    protected fun hideProgress () {
+    protected fun hideProgress() {
         view?.findViewById<ProgressBar>(R.id.progressSpinner)?.visibility = View.GONE
     }
 

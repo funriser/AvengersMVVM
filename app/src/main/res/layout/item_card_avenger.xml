@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/MainCard"
     android:id="@+id/cardAvenger"
+    style="@style/MainCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,33 +16,33 @@
             android:id="@+id/ivAvenger"
             android:layout_width="0dp"
             android:layout_height="170dp"
+            android:contentDescription="@string/cd_avengerPhoto"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/tvAvengerAlias"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tvAvengerAlias"
-            android:contentDescription="@string/cd_avengerPhoto"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvAvengerAlias"
             style="@style/TextLarge.Black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginS"
             android:layout_marginStart="@dimen/marginS"
-            app:layout_constraintTop_toBottomOf="@id/ivAvenger"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:layout_marginTop="@dimen/marginS"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAvenger" />
 
         <TextView
-            style="@style/TextNormal"
             android:id="@+id/tvAvengerName"
+            style="@style/TextNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginXS"
             android:layout_marginBottom="@dimen/marginM"
-            app:layout_constraintTop_toBottomOf="@id/tvAvengerAlias"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/tvAvengerAlias"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tvAvengerAlias" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

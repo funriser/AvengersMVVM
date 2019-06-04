@@ -1,12 +1,7 @@
 package com.funrisestudio.avengers.core.extensions
 
 import androidx.lifecycle.*
-import com.funrisestudio.avengers.core.Either
 import com.funrisestudio.avengers.core.exception.Failure
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T?) -> Unit) =
         liveData.observe(this, Observer(body))

@@ -10,10 +10,10 @@ import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.item_poster.view.*
 import kotlin.properties.Delegates
 
-class AvengerMoviesAdapter: RecyclerView.Adapter<AvengerMoviesAdapter.ViewHolder> () {
+class AvengerMoviesAdapter : RecyclerView.Adapter<AvengerMoviesAdapter.ViewHolder>() {
 
-    var listMovies: List<AvengerMovieView> by Delegates.observable(emptyList()) {
-        _,_,_ -> notifyDataSetChanged()
+    var listMovies: List<AvengerMovieView> by Delegates.observable(emptyList()) { _, _, _ ->
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -23,11 +23,11 @@ class AvengerMoviesAdapter: RecyclerView.Adapter<AvengerMoviesAdapter.ViewHolder
         holder.binHolder(listMovies[position])
     }
 
-    override fun getItemCount(): Int  = listMovies.size
+    override fun getItemCount(): Int = listMovies.size
 
-    class ViewHolder (itemView: View): RecyclerView.ViewHolder (itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun binHolder (avengerMovieView: AvengerMovieView) {
+        fun binHolder(avengerMovieView: AvengerMovieView) {
             itemView.ivAvengerMovie.loadFromUrl(avengerMovieView.poster)
         }
 

@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException
 class AvengersRepositoryImpl(
         private val firestore: Firestore,
         private val networkHandler: NetworkHandler
-): AvengersRepository {
+) : AvengersRepository {
 
     override suspend fun avengers(): Either<Failure, List<Avenger>> {
         return if (!networkHandler.isConnected)
@@ -30,7 +30,7 @@ class AvengersRepositoryImpl(
             firebaseRequest(firestore.getAvengerMovies(avengerId)) { it }
     }
 
-    private suspend fun <T, R> firebaseRequest (task: Task<T>, transform: (T) -> R): Either<Failure, R> {
+    private suspend fun <T, R> firebaseRequest(task: Task<T>, transform: (T) -> R): Either<Failure, R> {
         return try {
             val response = task.await()
             if (response != null && task.isSuccessful && task.isComplete)

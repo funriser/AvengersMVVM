@@ -2,6 +2,7 @@ package com.funrisestudio.avengers.app.avengers
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.extensions.inflate
@@ -9,7 +10,7 @@ import com.funrisestudio.avengers.core.extensions.loadFromUrl
 import kotlinx.android.synthetic.main.item_card_avenger.view.*
 import kotlin.properties.Delegates
 
-class AvengersAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
+class AvengersAdapter: RecyclerView.Adapter<AvengersAdapter.ViewHolder> () {
 
     internal var collection: List<AvengerView> by Delegates.observable(emptyList()) {
         _, _, _ -> notifyDataSetChanged()
@@ -25,7 +26,7 @@ class AvengersAdapter: androidx.recyclerview.widget.RecyclerView.Adapter<Avenger
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
             = holder.bind(collection[position], clickListener)
 
-    class ViewHolder (itemView: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
         fun bind (avengerItem: AvengerView, itemClick: (AvengerView, View) -> Unit) {
             itemView.tvAvengerName.text = avengerItem.name

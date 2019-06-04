@@ -30,7 +30,7 @@
                 android:text="@string/detail_age"
                 app:layout_constraintEnd_toStartOf="@+id/tvAgeTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvDetailDoB"
@@ -87,8 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginL"
                 android:text="@string/detail_story"
-                app:layout_constraintTop_toBottomOf="@id/rvAvengerMovies"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvAvengerMovies" />
 
             <TextView
                 android:id="@+id/tvDetailStory"

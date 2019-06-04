@@ -11,7 +11,7 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executor
 import kotlin.coroutines.EmptyCoroutineContext
 
-abstract class UseCase<out Type, in Params> (private val executor: Executor) where Type : Any {
+abstract class UseCase<out Type, in Params>(private val executor: Executor) where Type : Any {
 
     abstract suspend fun run(params: Params): Either<Failure, Type>
 

@@ -3,7 +3,6 @@ package com.funrisestudio.avengers.app.avengers
 import android.os.Bundle
 
 import android.view.View
-import android.view.ViewTreeObserver.*
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -17,10 +16,11 @@ import com.funrisestudio.avengers.core.extensions.observe
 import com.funrisestudio.avengers.core.extensions.popSnackbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.content_avengers.*
+import kotlinx.android.synthetic.main.fragment_avengers.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AvengersFragment: BaseFragment() {
+class AvengersFragment : BaseFragment() {
 
     private val avengersAdapter: AvengersAdapter by inject()
     private val avengersAnimator: AvengersAnimator by inject()
@@ -49,11 +49,12 @@ class AvengersFragment: BaseFragment() {
     }
 
     private fun initView() {
+        toolbar.title = getString(R.string.app_name)
         avengersAnimator.setUpReturnTransition(this)
         rvAvengers.layoutManager = GridLayoutManager(context, 2)
         rvAvengers.itemAnimator = DefaultItemAnimator()
         rvAvengers.adapter = avengersAdapter
-        avengersAdapter.clickListener = { avInfo, trView->
+        avengersAdapter.clickListener = { avInfo, trView ->
             val navExtras = FragmentNavigatorExtras(
                     trView to trView.transitionName)
             val action = AvengersFragmentDirections.actionAvengersToDetails(avInfo,
