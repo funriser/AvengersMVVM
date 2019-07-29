@@ -1,11 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,21 +14,28 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="MainCard">
+    <style name="ActionBar" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="MainCard" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_marginTop">@dimen/marginS</item>
         <item name="android:layout_marginLeft">@dimen/marginS</item>
         <item name="android:layout_marginRight">@dimen/marginS</item>
         <item name="android:layout_marginBottom">1dp</item>
-        <item name="cardCornerRadius">@dimen/cardCornerRadius</item>
     </style>
 
     <style name="ContentCard">
         <item name="android:layout_margin">@dimen/marginM</item>
         <item name="cardCornerRadius">@dimen/cardCornerRadius</item>
+    </style>
+
+    <style name="MainFab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/colorAccent</item>
     </style>
 
     <style name="TextLarge" parent="TextAppearance.AppCompat">

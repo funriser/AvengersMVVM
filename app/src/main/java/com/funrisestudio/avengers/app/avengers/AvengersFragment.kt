@@ -1,6 +1,8 @@
 package com.funrisestudio.avengers.app.avengers
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 
 import android.view.View
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -8,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.funrisestudio.avengers.R
+import com.funrisestudio.avengers.app.AvengersActivity
 import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.base.BaseFragment
 import com.funrisestudio.avengers.core.exception.Failure
@@ -49,7 +52,6 @@ class AvengersFragment : BaseFragment() {
     }
 
     private fun initView() {
-        toolbar.title = getString(R.string.app_name)
         avengersAnimator.setUpReturnTransition(this)
         rvAvengers.layoutManager = GridLayoutManager(context, 2)
         rvAvengers.itemAnimator = DefaultItemAnimator()
