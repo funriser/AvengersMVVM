@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/marginL">
+
+    <ImageView
+        android:id="@+id/ivMasterAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/fury_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMasterAlias"
+        style="@style/TextLarge.Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginM"
+        android:text="Nick Fury"
+        app:layout_constraintStart_toEndOf="@id/ivMasterAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivMasterAvatar" />
+
+    <TextView
+        android:id="@+id/tvMasterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginM"
+        android:text="Nicholas Joseph"
+        app:layout_constraintBottom_toBottomOf="@id/ivMasterAvatar"
+        app:layout_constraintStart_toEndOf="@id/ivMasterAvatar" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/marginL"
+        android:layout_marginTop="@dimen/marginL"
+        android:layout_marginEnd="@dimen/marginL"
+        android:background="#bdbdbdbd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMasterAvatar" />
+
+    <TextView
+        android:id="@+id/textAction1"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginXL"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Avengers Assemble"
+        app:layout_constraintStart_toStartOf="@id/tvMasterName"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/textAction2"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginXL"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Call captain marvel"
+        app:layout_constraintStart_toStartOf="@id/textAction1"
+        app:layout_constraintTop_toBottomOf="@id/textAction1" />
+
+    <TextView
+        android:id="@+id/textAction3"
+        style="@style/TextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginXL"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Play with Goose"
+        app:layout_constraintStart_toStartOf="@id/textAction2"
+        app:layout_constraintTop_toBottomOf="@id/textAction2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,10 @@ class AvengersFragment : BaseFragment() {
                     trView.transitionName)
             findNavController().navigate(action, navExtras)
         }
+        bar.setNavigationOnClickListener {
+            //TODO("Add to navigation if possible")
+            BottomSheetOptionsFragment().show(childFragmentManager, null)
+        }
     }
 
     private fun renderAvengers(list: List<AvengerView>?) {
