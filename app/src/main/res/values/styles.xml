@@ -79,6 +79,7 @@
 
     <style name="TextHeader" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/textXXL</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="TransitionImage">

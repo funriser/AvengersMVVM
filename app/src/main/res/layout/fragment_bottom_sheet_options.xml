@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutBottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/marginL">
@@ -66,7 +67,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
-        android:text="Call captain marvel"
+        android:text="Spider-man tasks"
         app:layout_constraintStart_toStartOf="@id/textAction1"
         app:layout_constraintTop_toBottomOf="@id/textAction1" />
 
@@ -79,8 +80,18 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
-        android:text="Play with Goose"
+        android:text="Create new secret"
         app:layout_constraintStart_toStartOf="@id/textAction2"
         app:layout_constraintTop_toBottomOf="@id/textAction2" />
+
+    <Button
+        android:id="@+id/vHidden"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Call Carol"
+        android:layout_marginTop="@dimen/marginXL"
+        app:layout_constraintTop_toBottomOf="@id/textAction3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
