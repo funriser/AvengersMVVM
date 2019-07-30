@@ -1,5 +1,5 @@
 # Avengers
-This repository demonstrates the Clean Architecture principles implementation in android application. Provided solution integrates Firebase services to fetch data from Cloud Firestore and takes advantages of using Google Tasks Api to bring asynchronous work to the application.
+This repository demonstrates the Clean Architecture principles implementation in android application. Provided solution integrates Firebase services to fetch data from Cloud Firestore and takes advantages of using Kotlin Coroutines to bring asynchronous work to the application.
 ## Clean Architecture
 ### Layers dependency rule
 ![Diagram 1](http://drive.google.com/uc?export=view&id=1wXQfiXM1E24KVtTjR7bA5K5M3mJCb5Xp)
@@ -10,6 +10,6 @@ This repository demonstrates the Clean Architecture principles implementation in
 * [Architecting Android...Reloaded](https://fernandocejas.com/2018/05/07/architecting-android-reloaded/)
 ## Built with
 * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)
-* [Dagger 2](https://google.github.io/dagger/)
-* [Google Tasks Api](https://developers.google.com/android/guides/tasks)
+* [Koin](https://github.com/InsertKoinIO/koin)
+* [Kotlin Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
 * [Cloud Firestore](https://firebase.google.com/docs/firestore/)
