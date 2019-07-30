@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -64,8 +65,10 @@ class AvengersFragment : BaseFragment() {
             findNavController().navigate(action, navExtras)
         }
         bar.setNavigationOnClickListener {
-            //TODO("Add to navigation if possible")
             BottomSheetOptionsFragment().show(childFragmentManager, null)
+        }
+        fab.setOnClickListener {
+            Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
         }
     }
 

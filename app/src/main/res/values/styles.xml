@@ -41,7 +41,9 @@
     </style>
 
     <style name="MainFab" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="tint">@color/colorAccent</item>
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="android:src">@drawable/ic_plus</item>
+        <item name="tint">@color/colorWhite</item>
     </style>
 
     <style name="TextLarge" parent="TextAppearance.AppCompat">
