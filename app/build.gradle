@@ -30,6 +30,9 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -47,27 +50,28 @@ dependencies {
 
     //Support libs
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'com.google.android.material:material:1.1.0-alpha08'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //Firebase services
-    implementation 'com.google.firebase:firebase-firestore:19.0.0'
+    implementation 'com.google.firebase:firebase-firestore:20.2.0'
 
     //Architecture components
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01'
+    def arch_comp_version = "2.2.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$arch_comp_version"
     implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_comp_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_comp_version"
 
     //Dependency injection
     implementation 'org.koin:koin-android:2.0.1'
     implementation 'org.koin:koin-androidx-viewmodel:2.0.1'
 
     //Navigation
-    def nav_version = "2.1.0-alpha04"
+    def nav_version = "2.1.0-beta02"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -85,8 +89,8 @@ dependencies {
     testImplementation "org.powermock:powermock-api-mockito2:2.0.0-beta.5"
     testImplementation "org.powermock:powermock-module-junit4:2.0.0-beta.5"
 
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
