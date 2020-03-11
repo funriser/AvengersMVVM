@@ -35,7 +35,6 @@ class App : Application() {
     }
 
     private val dataModule = module {
-        single<Executor> { Executors.newCachedThreadPool() }
         single { Firestore(FirebaseFirestore.getInstance()) }
         single<AvengersRepository> { AvengersRepositoryImpl(get(), get()) }
         factory { NetworkHandler(androidContext()) }
@@ -44,12 +43,12 @@ class App : Application() {
     private val avengersModule = module {
         factory { AvengersAnimator() }
         factory { AvengersAdapter() }
-        factory { GetAvengers(get(), get()) }
+        factory { GetAvengers(get()) }
         viewModel { AvengersViewModel(get()) }
     }
 
     private val avengerDetailModule = module {
-        factory { GetMoviesForAvenger(get(), get()) }
+        factory { GetMoviesForAvenger(get()) }
         factory { AvengerDetailsAnimator() }
         factory { AvengerMoviesAdapter() }
         viewModel { AvengerDetailViewModel(get()) }
