@@ -1,31 +1,55 @@
 package com.funrisestudio.avengers.app.avengerDetail
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.funrisestudio.avengers.app.view.AvengerMovieView
+import com.funrisestudio.avengers.app.view.AvengerView
+import com.funrisestudio.avengers.core.SingleLiveEvent
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.funrisestudio.avengers.domain.interactor.GetMoviesForAvenger
 
 class AvengerDetailViewModel(
-        private val interactor: GetMoviesForAvenger
+        private val interactor: GetMoviesForAvenger,
+        private val avengerView: AvengerView
 ) : ViewModel() {
 
-    val avengerMovies = MutableLiveData<List<AvengerMovieView>>()
+    val avengerDetails: LiveData<AvengerView>
 
-    val failure = MutableLiveData<Failure>()
+    private val _avengerMovies = MutableLiveData<List<AvengerMovie>>()
+    val avengerMovies: LiveData<List<AvengerMovieView>> = _avengerMovies.map { result ->
+        result.map { AvengerMovieView(it) }
+    }
 
-    fun getAvengerMovies(avengerId: String) = interactor.invoke(avengerId, viewModelScope) {
-        it.either(this::onGetAvengerMoviesError, this::onGetAvengerMoviesSuccess)
+    private val _failure = MutableLiveData<Failure>()
+    val failure: LiveData<Failure> = _failure
+
+    private val _progress = SingleLiveEvent<Boolean>()
+    val progress: LiveData<Boolean> = _progress
+
+    init {
+        avengerDetails = MutableLiveData(avengerView)
+        loadAvengerMovies(avengerView.id)
+    }
+
+    fun loadAvengerMovies() {
+        loadAvengerMovies(avengerView.id)
+    }
+
+    private fun loadAvengerMovies(avengerId: String) {
+        _progress.value = true
+        interactor.invoke(avengerId, viewModelScope) {
+            it.either(this::onGetAvengerMoviesError, this::onGetAvengerMoviesSuccess)
+        }
     }
 
     private fun onGetAvengerMoviesSuccess(avengerMovies: List<AvengerMovie>) {
-        this.avengerMovies.value = avengerMovies.map { AvengerMovieView(it) }
+        _progress.value = false
+        _avengerMovies.value = avengerMovies
     }
 
     private fun onGetAvengerMoviesError(failure: Failure) {
-        this.failure.value = failure
+        _progress.value = false
+        _failure.value = failure
     }
 
 }

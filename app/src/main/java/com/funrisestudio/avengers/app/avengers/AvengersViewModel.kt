@@ -1,35 +1,45 @@
 package com.funrisestudio.avengers.app.avengers
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.funrisestudio.avengers.app.view.AvengerView
+import com.funrisestudio.avengers.core.SingleLiveEvent
 import com.funrisestudio.avengers.core.exception.Failure
-import com.funrisestudio.avengers.core.extensions.pushOrUpdateIfNull
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
 
 class AvengersViewModel(private val getAvengers: GetAvengers) : ViewModel() {
 
-    val avengers = MutableLiveData<List<AvengerView>>()
+    private val _avengers = MutableLiveData<List<Avenger>>()
+    val avengers: LiveData<List<AvengerView>> = _avengers.map { result ->
+        result.map { AvengerView(it) }
+    }
 
-    val failure = MutableLiveData<Failure>()
+    private val _failure = MutableLiveData<Failure>()
+    val failure: LiveData<Failure> = _failure
 
-    fun getAvengers() {
-        avengers.pushOrUpdateIfNull {
-            getAvengers.invoke(UseCase.None(), viewModelScope) {
-                it.either(::onGetAvengersError, ::onGetAvengersSuccess)
-            }
+    private val _progress = SingleLiveEvent<Boolean>()
+    val progress: LiveData<Boolean> = _progress
+
+    init {
+        loadAvengers()
+    }
+
+    fun loadAvengers() {
+        _progress.value = true
+        getAvengers.invoke(UseCase.None(), viewModelScope) {
+            it.either(::onGetAvengersError, ::onGetAvengersSuccess)
         }
     }
 
     private fun onGetAvengersSuccess(avengersList: List<Avenger>) {
-        avengers.value = avengersList.map { AvengerView(it) }
+        _progress.value = false
+        _avengers.value = avengersList
     }
 
     private fun onGetAvengersError(failure: Failure) {
-        this.failure.value = failure
+        _progress.value = false
+        this._failure.value = failure
     }
 
 }

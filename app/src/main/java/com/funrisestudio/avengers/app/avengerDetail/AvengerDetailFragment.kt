@@ -1,12 +1,12 @@
 package com.funrisestudio.avengers.app.avengerDetail
 
 import android.os.Bundle
-import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.funrisestudio.avengers.R
 import com.funrisestudio.avengers.app.view.AvengerMovieView
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.base.BaseFragment
 import com.funrisestudio.avengers.core.exception.Failure
 import com.funrisestudio.avengers.core.extensions.failure
@@ -19,13 +19,14 @@ import kotlinx.android.synthetic.main.content_avenger_detail.*
 import kotlinx.android.synthetic.main.layout_avenger_details_header.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlideListener {
 
     private val movieAdapter: AvengerMoviesAdapter by inject()
     private val fragmentAnimator: AvengerDetailsAnimator by inject()
-    private val viewModel: AvengerDetailViewModel by viewModel()
     private val args: AvengerDetailFragmentArgs by navArgs()
+    private val viewModel: AvengerDetailViewModel by viewModel { parametersOf(args.avenger) }
 
     override var layoutId: Int = R.layout.fragment_avenger_detail
 
@@ -35,23 +36,17 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
             setUpTransitions(this@AvengerDetailFragment)
             postponeTransition(this@AvengerDetailFragment)
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         with(viewModel) {
             observe(avengerMovies, ::renderAvengerMovies)
+            observe(avengerDetails, ::renderAvengerDetails)
+            observe(progress, ::renderProgress)
             failure(failure, ::handleFailure)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         initView()
-        loadAvengerMovies()
-        showAvengerDetails()
-    }
-
-    private fun loadAvengerMovies() {
-        showProgress()
-        viewModel.getAvengerMovies(args.avenger.id)
     }
 
     private fun initView() {
@@ -62,8 +57,8 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
         rvAvengerMovies.adapter = movieAdapter
     }
 
-    private fun showAvengerDetails() {
-        args.avenger.let {
+    private fun renderAvengerDetails(avengerView: AvengerView?) {
+        avengerView?.let {
             tvAvengerHeader.text = it.alias
             tvDetailAge.text = it.age.toString()
             tvDetailDoB.text = it.dob
@@ -74,16 +69,22 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
 
     private fun renderAvengerMovies(avengerMovies: List<AvengerMovieView>?) {
         movieAdapter.listMovies = avengerMovies.orEmpty()
-        hideProgress()
+    }
+
+    private fun renderProgress(isShown: Boolean?) {
+        if (isShown == true) {
+            showProgress()
+        } else {
+            hideProgress()
+        }
     }
 
     private fun handleFailure(failure: Failure?) {
-        hideProgress()
         when (failure) {
             is Failure.NetworkConnection ->
                 popSnackbar(layoutDetail,
                         getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
-                        getString(R.string.error_try_again)) { loadAvengerMovies() }
+                        getString(R.string.error_try_again)) { viewModel.loadAvengerMovies() }
             else -> popSnackbar(layoutDetail, getString(R.string.error_server))
         }
     }

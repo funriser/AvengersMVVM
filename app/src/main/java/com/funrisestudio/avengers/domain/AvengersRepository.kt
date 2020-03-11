@@ -7,8 +7,8 @@ import com.funrisestudio.avengers.domain.entity.AvengerMovie
 
 interface AvengersRepository {
 
-    suspend fun avengers (): Either<Failure, List<Avenger>>
+    suspend fun avengers(): Either<Failure, List<Avenger>>
 
-    suspend fun avengerMovies (avengerId: String): Either<Failure, List<AvengerMovie>>
+    suspend fun avengerMovies(avengerId: String): Either<Failure, List<AvengerMovie>>
 
 }

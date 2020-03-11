@@ -1,17 +1,13 @@
 package com.funrisestudio.avengers.app.avengers
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 
-import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.funrisestudio.avengers.R
-import com.funrisestudio.avengers.app.AvengersActivity
 import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.base.BaseFragment
 import com.funrisestudio.avengers.core.exception.Failure
@@ -32,24 +28,18 @@ class AvengersFragment : BaseFragment() {
 
     override var layoutId: Int = R.layout.fragment_avengers
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         with(viewModel) {
             observe(avengers, ::renderAvengers)
+            observe(progress, ::renderProgress)
             failure(failure, ::handleFailure)
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         initView()
-        loadAvengers()
     }
 
     private fun loadAvengers() {
-        showProgress()
-        viewModel.getAvengers()
+        viewModel.loadAvengers()
     }
 
     private fun initView() {
@@ -74,11 +64,17 @@ class AvengersFragment : BaseFragment() {
 
     private fun renderAvengers(list: List<AvengerView>?) {
         avengersAdapter.collection = list.orEmpty()
-        hideProgress()
+    }
+
+    private fun renderProgress(isShown: Boolean?) {
+        if (isShown == true) {
+            showProgress()
+        } else {
+            hideProgress()
+        }
     }
 
     private fun handleFailure(failure: Failure?) {
-        hideProgress()
         when (failure) {
             is Failure.NetworkConnection ->
                 popSnackbar(layoutMain,

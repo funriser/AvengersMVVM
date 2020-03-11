@@ -7,6 +7,7 @@ import com.funrisestudio.avengers.app.avengerDetail.AvengerMoviesAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAnimator
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.core.NetworkHandler
 import com.funrisestudio.avengers.data.AvengersRepositoryImpl
 import com.funrisestudio.avengers.data.source.Firestore
@@ -19,8 +20,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class App : Application() {
 
@@ -51,7 +50,7 @@ class App : Application() {
         factory { GetMoviesForAvenger(get()) }
         factory { AvengerDetailsAnimator() }
         factory { AvengerMoviesAdapter() }
-        viewModel { AvengerDetailViewModel(get()) }
+        viewModel { (view: AvengerView) -> AvengerDetailViewModel(get(), view) }
     }
 
 }
