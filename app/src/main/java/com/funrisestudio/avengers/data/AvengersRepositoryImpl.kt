@@ -12,19 +12,19 @@ import com.google.android.gms.tasks.Task
 import java.util.concurrent.ExecutionException
 
 class AvengersRepositoryImpl(
-        private val firestore: Firestore,
-        private val networkHandler: NetworkHandler
+    private val firestore: Firestore,
+    private val networkHandler: NetworkHandler
 ) : AvengersRepository {
 
     override suspend fun avengers(): Either<Failure, List<Avenger>> {
-        return if (!networkHandler.isConnected)
+        return if (!networkHandler.isConnected())
             Either.Left(Failure.NetworkConnection)
         else
             firebaseRequest(firestore.getAvengers()) { it }
     }
 
     override suspend fun avengerMovies(avengerId: String): Either<Failure, List<AvengerMovie>> {
-        return if (!networkHandler.isConnected)
+        return if (!networkHandler.isConnected())
             Either.Left(Failure.NetworkConnection)
         else
             firebaseRequest(firestore.getAvengerMovies(avengerId)) { it }
