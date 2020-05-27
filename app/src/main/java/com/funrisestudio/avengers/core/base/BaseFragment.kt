@@ -11,12 +11,12 @@ import com.funrisestudio.avengers.R
 
 abstract class BaseFragment : Fragment() {
 
+    @LayoutRes
+    open var layoutId = R.layout.layout_empty
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutId, container, false)
     }
-
-    @LayoutRes
-    open var layoutId = R.layout.layout_empty
 
     protected fun showProgress() {
         view?.findViewById<ProgressBar>(R.id.progressSpinner)?.visibility = View.VISIBLE

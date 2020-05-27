@@ -38,10 +38,6 @@ class AvengersFragment : BaseFragment() {
         initView()
     }
 
-    private fun loadAvengers() {
-        viewModel.loadAvengers()
-    }
-
     private fun initView() {
         avengersAnimator.setUpReturnTransition(this)
         rvAvengers.layoutManager = GridLayoutManager(context, 2)
@@ -79,7 +75,7 @@ class AvengersFragment : BaseFragment() {
             is Failure.NetworkConnection ->
                 popSnackbar(layoutMain,
                         getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
-                        getString(R.string.error_try_again)) { loadAvengers() }
+                        getString(R.string.error_try_again)) { viewModel.loadAvengers() }
             else -> popSnackbar(layoutMain, getString(R.string.error_server))
         }
     }

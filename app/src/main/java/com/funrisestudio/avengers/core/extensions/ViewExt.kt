@@ -1,6 +1,5 @@
 package com.funrisestudio.avengers.core.extensions
 
-import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
@@ -14,8 +13,6 @@ import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
-import android.util.DisplayMetrics
-
 
 
 fun ViewGroup.inflate(@LayoutRes layoutId: Int, root: ViewGroup = this, attachToRoot: Boolean = false): View =
@@ -27,24 +24,6 @@ fun ImageView.loadFromUrl(url: String) =
 fun ImageView.loadUrlAndStartTransition(url: String, fragment: Fragment) {
     val target: Target<Drawable> = ImageViewBaseTarget(this, fragment)
     Glide.with(context.applicationContext).load(url).into(target)
-}
-
-fun Context?.dip(dip: Int): Int {
-    this?:return 0
-    return dip * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-}
-
-fun Context?.dip(dip: Float): Float {
-    this?:return 0f
-    return dip * (resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-}
-
-fun Fragment.dip(dip: Int): Int {
-    return context.dip(dip)
-}
-
-fun Fragment.dip(dip: Float): Float {
-    return context.dip(dip)
 }
 
 fun Fragment.popSnackbar(view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG,

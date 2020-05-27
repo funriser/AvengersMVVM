@@ -18,14 +18,14 @@ class AvengersRepositoryImpl(
 
     override suspend fun avengers(): Either<Failure, List<Avenger>> {
         return if (!networkHandler.isConnected)
-            Either.Left(Failure.NetworkConnection())
+            Either.Left(Failure.NetworkConnection)
         else
             firebaseRequest(firestore.getAvengers()) { it }
     }
 
     override suspend fun avengerMovies(avengerId: String): Either<Failure, List<AvengerMovie>> {
         return if (!networkHandler.isConnected)
-            Either.Left(Failure.NetworkConnection())
+            Either.Left(Failure.NetworkConnection)
         else
             firebaseRequest(firestore.getAvengerMovies(avengerId)) { it }
     }
@@ -36,13 +36,13 @@ class AvengersRepositoryImpl(
             if (response != null && task.isSuccessful && task.isComplete)
                 Either.Right(transform(response))
             else
-                Either.Left(Failure.ServerError())
+                Either.Left(Failure.ServerError)
         } catch (e: ExecutionException) {
             e.printStackTrace()
-            Either.Left(Failure.ServerError())
+            Either.Left(Failure.ServerError)
         } catch (e: InterruptedException) {
             e.printStackTrace()
-            Either.Left(Failure.ServerError())
+            Either.Left(Failure.ServerError)
         }
     }
 
