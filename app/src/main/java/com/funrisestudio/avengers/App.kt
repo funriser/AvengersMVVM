@@ -8,9 +8,12 @@ import com.funrisestudio.avengers.app.avengers.AvengersAdapter
 import com.funrisestudio.avengers.app.avengers.AvengersAnimator
 import com.funrisestudio.avengers.app.avengers.AvengersViewModel
 import com.funrisestudio.avengers.app.view.AvengerView
-import com.funrisestudio.avengers.core.NetworkHandler
+import com.funrisestudio.avengers.data.network.ConnectionStateImpl
+import com.funrisestudio.avengers.data.AvengersRemoteSource
 import com.funrisestudio.avengers.data.AvengersRepositoryImpl
-import com.funrisestudio.avengers.data.source.Firestore
+import com.funrisestudio.avengers.data.network.ConnectionState
+import com.funrisestudio.avengers.data.source.AppFirestore
+import com.funrisestudio.avengers.data.source.FirestoreQuery
 import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
 import com.funrisestudio.avengers.domain.interactor.GetMoviesForAvenger
@@ -34,9 +37,11 @@ class App : Application() {
     }
 
     private val dataModule = module {
-        single { Firestore(FirebaseFirestore.getInstance()) }
+        single<AvengersRemoteSource> { AppFirestore(get(), get()) }
         single<AvengersRepository> { AvengersRepositoryImpl(get(), get()) }
-        factory { NetworkHandler(androidContext()) }
+        single { FirebaseFirestore.getInstance() }
+        single { FirestoreQuery() }
+        single<ConnectionState> { ConnectionStateImpl(androidContext()) }
     }
 
     private val avengersModule = module {

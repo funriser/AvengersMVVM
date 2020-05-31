@@ -9,8 +9,8 @@ import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import com.funrisestudio.avengers.domain.interactor.GetMoviesForAvenger
 
 class AvengerDetailViewModel(
-        private val interactor: GetMoviesForAvenger,
-        private val avengerView: AvengerView
+    private val interactor: GetMoviesForAvenger,
+    private val avengerView: AvengerView
 ) : ViewModel() {
 
     val avengerDetails: LiveData<AvengerView>

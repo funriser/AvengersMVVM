@@ -1,51 +1,47 @@
 package com.funrisestudio.avengers.domain
 
 import com.funrisestudio.avengers.core.Either
-import com.funrisestudio.avengers.domain.entity.Avenger
+import com.funrisestudio.avengers.core.exception.Failure
+import com.funrisestudio.avengers.data.TestData
 import com.funrisestudio.avengers.domain.interactor.GetAvengers
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import com.nhaarman.mockito_kotlin.whenever
-import junit.framework.Assert.assertEquals
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import java.util.*
-import java.util.concurrent.Executors
 
 class GetAvengersTest {
 
-    @Mock private lateinit var repository: AvengersRepository
-
+    private val avengersRepository: AvengersRepository = mock()
     private lateinit var interactor: GetAvengers
 
-    private val testDate = Date()
-
     @Before
-    fun setUp () {
-        MockitoAnnotations.initMocks(this)
-        interactor = GetAvengers(repository, Executors.newCachedThreadPool())
+    fun setUp() {
+        interactor = GetAvengers(avengersRepository)
     }
 
     @Test
-    fun `Get avengers success` () {
-        whenever(repository.avengers()).thenReturn(
-                Either.Right(mockAvengers())
-        )
-        val result = interactor.run(UseCase.None())
-        assertEquals (result.isRight, true)
-        assertEquals((result as Either.Right).b, mockAvengers())
-        verify(repository).avengers()
-        verifyNoMoreInteractions(repository)
+    fun `should get avengers list`(): Unit = runBlocking {
+        val expectedList = TestData.getMockedAvengers()
+        val expectedAnswer = Either.Right(expectedList)
+        whenever(avengersRepository.avengers()).thenReturn(expectedAnswer)
+        val actual = interactor.run(UseCase.None())
+        assertEquals(expectedAnswer, actual)
+        verify(avengersRepository).avengers()
+        verifyNoMoreInteractions(avengersRepository)
     }
 
-    private fun mockAvengers () =
-            listOf(
-                    Avenger("1", "Tony", 50,
-                            "Iron Man", "", testDate, "Cool Story"),
-                    Avenger("2", "Cap", 50,
-                            "Captain America", "", testDate, "Cool Story")
-            )
+    @Test
+    fun `should proceed with error from repository`(): Unit = runBlocking {
+        val expectedAnswer = Either.Left(Failure.NetworkConnection)
+        whenever(avengersRepository.avengers()).thenReturn(expectedAnswer)
+        val actual = interactor.run(UseCase.None())
+        assertEquals(expectedAnswer, actual)
+        verify(avengersRepository).avengers()
+        verifyNoMoreInteractions(avengersRepository)
+    }
 
 }

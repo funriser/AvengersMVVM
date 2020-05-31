@@ -1,111 +1,108 @@
 package com.funrisestudio.avengers.data
 
 import com.funrisestudio.avengers.core.Either
-import com.funrisestudio.avengers.core.NetworkHandler
 import com.funrisestudio.avengers.core.exception.Failure
-import com.funrisestudio.avengers.data.source.Firestore
+import com.funrisestudio.avengers.data.network.ConnectionState
+import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
-import com.google.android.gms.common.util.ThreadUtils
-import com.google.android.gms.tasks.Tasks
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyNoMoreInteractions
-import com.nhaarman.mockito_kotlin.whenever
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import com.nhaarman.mockitokotlin2.*
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.modules.junit4.PowerMockRunner
-import java.util.*
 
-@RunWith(PowerMockRunner::class)
-@PrepareForTest(ThreadUtils::class)
 class AvengersRepositoryTest {
 
-    private lateinit var repository: AvengersRepositoryImpl
-    @Mock private lateinit var firestore: Firestore
-    @Mock private lateinit var networkHandler: NetworkHandler
+    private val avengersRemoteSource: AvengersRemoteSource = mock()
+    private val connectionState: ConnectionState = mock()
 
-    private val testDate = Date()
+    private lateinit var avengersRepository: AvengersRepository
 
     @Before
-    fun setUp () {
-        PowerMockito.mockStatic(ThreadUtils::class.java)
-        MockitoAnnotations.initMocks(this)
-        repository = AvengersRepositoryImpl(firestore, networkHandler)
+    fun setUp() {
+        avengersRepository = AvengersRepositoryImpl(
+                avengersRemoteSource, connectionState
+        )
     }
 
     @Test
-    fun `Getting avengers from network` () {
-
-        whenever(networkHandler.isConnected).thenReturn(true)
-        whenever(firestore.getAvengers()).thenReturn(Tasks.forResult(mockAvengers()))
-        whenever(ThreadUtils.isMainThread()).thenReturn(false)
-
-        val avengersResult = repository.avengers()
-        assertEquals(avengersResult, Either.Right(mockAvengers()))
-        verify(firestore).getAvengers()
+    fun `should get avengers list`(): Unit = runBlocking {
+        val expectedList: List<Avenger> = TestData.getMockedAvengers()
+        val expectedAnswer = Either.Right(expectedList)
+        whenever(connectionState.isConnected()).thenReturn(true)
+        whenever(avengersRemoteSource.getAvengers()).thenReturn(expectedAnswer)
+        val actual = avengersRepository.avengers()
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verify(avengersRemoteSource).getAvengers()
+        verifyNoMoreInteractions(connectionState)
+        verifyNoMoreInteractions(avengersRemoteSource)
     }
 
     @Test
-    fun `Getting avengers from network error` () {
-        whenever(networkHandler.isConnected).thenReturn(false)
-        whenever(firestore.getAvengers()).thenReturn(Tasks.forResult(mockAvengers()))
-        whenever(ThreadUtils.isMainThread()).thenReturn(false)
-
-        val avengersResult = repository.avengers()
-        assertTrue(avengersResult.isLeft)
-        assertTrue((avengersResult as Either.Left).a is Failure.NetworkConnection)
-        verifyNoMoreInteractions(firestore)
-    }
-
-
-    @Test
-    fun `Getting avenger movies from network` () {
-
-        val avengerId = "Av1"
-
-        whenever(networkHandler.isConnected).thenReturn(true)
-        whenever(firestore.getAvengerMovies(avengerId)).thenReturn(Tasks.forResult(mockAvengerMovies()))
-        whenever(ThreadUtils.isMainThread()).thenReturn(false)
-
-        val avengersResult = repository.avengerMovies(avengerId)
-        assertEquals(avengersResult, Either.Right(mockAvengerMovies()))
-        verify(firestore).getAvengerMovies(avengerId)
+    fun `should not get avengers if network is not connected`(): Unit = runBlocking {
+        val expectedAnswer = Either.Left(Failure.NetworkConnection)
+        whenever(connectionState.isConnected()).thenReturn(false)
+        val actual = avengersRepository.avengers()
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verifyNoMoreInteractions(connectionState)
+        verifyZeroInteractions(avengersRemoteSource)
     }
 
     @Test
-    fun `Getting avenger movies from network error` () {
-
-        val avengerId = "Av1"
-
-        whenever(networkHandler.isConnected).thenReturn(false)
-        whenever(firestore.getAvengerMovies(avengerId)).thenReturn(Tasks.forResult(mockAvengerMovies()))
-        whenever(ThreadUtils.isMainThread()).thenReturn(false)
-
-        val avengersResult = repository.avengerMovies(avengerId)
-        assertTrue(avengersResult.isLeft)
-        assertTrue((avengersResult as Either.Left).a is Failure.NetworkConnection)
-        verifyNoMoreInteractions(firestore)
+    fun `should proceed with error from remote source for avengers`(): Unit = runBlocking {
+        val expectedAnswer = Either.Left(Failure.ServerError)
+        whenever(connectionState.isConnected()).thenReturn(true)
+        whenever(avengersRemoteSource.getAvengers()).thenReturn(expectedAnswer)
+        val actual = avengersRepository.avengers()
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verify(avengersRemoteSource).getAvengers()
+        verifyNoMoreInteractions(connectionState)
+        verifyNoMoreInteractions(avengersRemoteSource)
     }
 
-    private fun mockAvengers () =
-            listOf(
-                    Avenger("1", "Tony", 50,
-                            "Iron Man", "", testDate, "Cool Story"),
-                    Avenger("2", "Cap", 50,
-                            "Captain America", "", testDate, "Cool Story")
-            )
+    @Test
+    fun `should get avenger movies list`(): Unit = runBlocking {
+        val avengerId = "1"
+        val expectedList: List<AvengerMovie> = TestData.getMockedAvengerMovies()
+        val expectedAnswer = Either.Right(expectedList)
+        whenever(connectionState.isConnected()).thenReturn(true)
+        whenever(avengersRemoteSource.getAvengerMovies(avengerId)).thenReturn(expectedAnswer)
+        val actual = avengersRepository.avengerMovies(avengerId)
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verify(avengersRemoteSource).getAvengerMovies(avengerId)
+        verifyNoMoreInteractions(connectionState)
+        verifyNoMoreInteractions(avengersRemoteSource)
+    }
 
-    private fun mockAvengerMovies () =
-            listOf(
-                    AvengerMovie("Movie1", ""),
-                    AvengerMovie("Movie2", ""),
-                    AvengerMovie("Movie3", "")
-            )
+    @Test
+    fun `should not get avenger movies if network is not connected`(): Unit = runBlocking {
+        val avengerId = "1"
+        val expectedAnswer = Either.Left(Failure.NetworkConnection)
+        whenever(connectionState.isConnected()).thenReturn(false)
+        val actual = avengersRepository.avengerMovies(avengerId)
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verifyNoMoreInteractions(connectionState)
+        verifyZeroInteractions(avengersRemoteSource)
+    }
+
+    @Test
+    fun `should proceed with error from remote source for avenger movies`(): Unit = runBlocking {
+        val avengerId = "1"
+        val expectedAnswer = Either.Left(Failure.ServerError)
+        whenever(connectionState.isConnected()).thenReturn(true)
+        whenever(avengersRemoteSource.getAvengerMovies(avengerId)).thenReturn(expectedAnswer)
+        val actual = avengersRepository.avengerMovies(avengerId)
+        assertEquals(expectedAnswer, actual)
+        verify(connectionState).isConnected()
+        verify(avengersRemoteSource).getAvengerMovies(avengerId)
+        verifyNoMoreInteractions(connectionState)
+        verifyNoMoreInteractions(avengersRemoteSource)
+    }
+
 }

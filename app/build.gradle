@@ -77,13 +77,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    //Mockito (Powermock compatible)
-    testImplementation "com.nhaarman:mockito-kotlin:1.5.0"
-    testImplementation "org.mockito:mockito-core:2.13.0"
-
-    //Powermock
-    testImplementation "org.powermock:powermock-api-mockito2:2.0.0-beta.5"
-    testImplementation "org.powermock:powermock-module-junit4:2.0.0-beta.5"
+    //Mockito
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "org.mockito:mockito-core:2.25.0"
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

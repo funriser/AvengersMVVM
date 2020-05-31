@@ -1,14 +1,14 @@
-package com.funrisestudio.avengers.core
+package com.funrisestudio.avengers.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-class NetworkHandler(private val context: Context) {
+class ConnectionStateImpl(private val context: Context): ConnectionState {
 
     @Suppress("DEPRECATION")
-    fun isConnected(): Boolean {
+    override fun isConnected(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         cm?:return false
         return if (Build.VERSION.SDK_INT < 23) {
