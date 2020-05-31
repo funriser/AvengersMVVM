@@ -6,7 +6,7 @@ import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 
-class GetMoviesForAvenger(
+open class GetMoviesForAvenger(
     private val avengersRepository: AvengersRepository
 ) : UseCase<List<AvengerMovie>, String>() {
 

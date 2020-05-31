@@ -1,5 +1,7 @@
 package com.funrisestudio.avengers.data
 
+import com.funrisestudio.avengers.app.view.AvengerMovieView
+import com.funrisestudio.avengers.app.view.AvengerView
 import com.funrisestudio.avengers.domain.entity.Avenger
 import com.funrisestudio.avengers.domain.entity.AvengerMovie
 import java.util.*
@@ -38,6 +40,24 @@ object TestData {
         )
     }
 
+    fun getMockedAvengerViews(): List<AvengerView> {
+        return getMockedAvengers().map { AvengerView(it) }
+    }
+
+    fun getMockedAvengerView(): AvengerView {
+        return AvengerView(
+                Avenger(
+                        id = "1",
+                        name = "Tony Stark",
+                        age = 42,
+                        alias = "Iron Man",
+                        image = "https://image",
+                        dob = Date(),
+                        story = "Cool story"
+                )
+        )
+    }
+
     fun getMockedAvengerMovies(): List<AvengerMovie> {
         return listOf(
                 AvengerMovie(
@@ -53,6 +73,10 @@ object TestData {
                         poster = "https://image"
                 )
         )
+    }
+
+    fun getMockedAvengerMovieViews(): List<AvengerMovieView> {
+        return getMockedAvengerMovies().map { AvengerMovieView(it) }
     }
 
 }

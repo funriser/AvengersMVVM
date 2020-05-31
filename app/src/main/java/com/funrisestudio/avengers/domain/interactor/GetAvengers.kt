@@ -6,7 +6,7 @@ import com.funrisestudio.avengers.domain.AvengersRepository
 import com.funrisestudio.avengers.domain.UseCase
 import com.funrisestudio.avengers.domain.entity.Avenger
 
-class GetAvengers(
+open class GetAvengers(
     private val avengersRepository: AvengersRepository
 ) : UseCase<List<Avenger>, UseCase.None>() {
 
