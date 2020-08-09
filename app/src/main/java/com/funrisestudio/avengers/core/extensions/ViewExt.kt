@@ -26,9 +26,10 @@ fun ImageView.loadUrlAndStartTransition(url: String, fragment: Fragment) {
     Glide.with(context.applicationContext).load(url).into(target)
 }
 
-fun Fragment.popSnackbar(view: View, text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG,
-                         actionName: String = "", action: () -> Unit = {}) {
-    val snackbar = Snackbar.make(view, text, duration)
+fun Fragment.popSnackbar(text: String = "Some text", duration: Int = Snackbar.LENGTH_LONG,
+                         actionName: String = "", view: View? = null, action: () -> Unit = {}) {
+    val v = view?:activity?.findViewById(android.R.id.content)?:return
+    val snackbar = Snackbar.make(v, text, duration)
     if (actionName.isNotEmpty() && action != {})
         snackbar.setAction(actionName) { action.invoke() }
     snackbar.show()

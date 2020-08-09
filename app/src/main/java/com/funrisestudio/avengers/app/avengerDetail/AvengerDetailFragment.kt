@@ -82,10 +82,9 @@ class AvengerDetailFragment : BaseFragment(), AvengerDetailsAnimator.AppBarSlide
     private fun handleFailure(failure: Failure?) {
         when (failure) {
             is Failure.NetworkConnection ->
-                popSnackbar(layoutDetail,
-                        getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
+                popSnackbar(getString(R.string.error_network), Snackbar.LENGTH_INDEFINITE,
                         getString(R.string.error_try_again)) { viewModel.loadAvengerMovies() }
-            else -> popSnackbar(layoutDetail, getString(R.string.error_server))
+            else -> popSnackbar( getString(R.string.error_server))
         }
     }
 
